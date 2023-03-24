@@ -1,4 +1,5 @@
 /bin/*
+/src/*.vm
 # Common IntelliJ Platform excludes
 
 # User specific
