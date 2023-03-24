@@ -1,0 +1,10 @@
+/**
+ * From nand to donut
+ */
+class Main {
+  /** Program entry point */
+  function void main() {
+
+    return;
+  }
+}
