@@ -1,0 +1,80 @@
+class Float{
+    field int intPart, fracPart;
+    field int accuracy;
+
+    constructor Float new(int x, int y){
+        let intPart = x; 
+        var int deg;
+        let deg = GetIntLen(y);
+        if (deg > 10){let deg = 10;}
+        let fracPart = y * Extensions.Pow(10, (10 - deg));//ффффф
+        let accuracy = 1000000000;
+        do WPC;
+        return this;
+    } 
+
+    method void WPC(){
+        if(~(fracPart < accuracy)){
+            let intPart = intPart + (fracPart / accuracy);
+            let fracPart = fracPart - ((fracPart / accuracy) * accuracy);
+        }
+    }
+
+    method Float intAdd(int n){
+        let intPart = intPart + n;
+        return this;
+    }
+
+    method Float Add(Float f){
+        let intPart = intPart + f.intPart;
+        let fracPart = fracPart + f.fracPart;
+        do WPC;
+        return this;
+    }
+
+    method Float intMult(int n){
+        let intPart = intPart * n;
+        let fracPart = fracPart * n;
+        do WPC;
+        return this; 
+    }
+
+    method Float mult(Float f){
+        var Float a;
+        let a = f.intMult(intPart);
+        var Float b;
+        var int c;
+        let c = (f.intPart * accuracy + f.fracPart)*fracPart;
+        var int deg;
+        let deg = GetIntLen(fracPart);
+        let c = c / (Extensions.Pow(10, (10 - deg)));
+        var int d;
+        let d = (a.intPart * accuracy + a.fracPart);
+        let intPart = 0;
+        let fracPart = d + c;
+        do WPC;
+        return this;
+    }
+
+    method Float intDiv(int d){
+        var int c;
+        let c = ((intPart * accuracy) + fracPart) * d;
+        let intPart = 0;
+        let fracPart = c;
+        do WPC;
+        return this;
+    }
+
+    function int GetIntLen(int n){
+        var int res;
+        let res = 0;
+
+        var int k;
+        let k = n;
+
+        while (k > 0){
+            let k = k / 10;
+            let res = res + 1;
+        }
+    }
+}
