@@ -1,9 +1,9 @@
 class HuffmanTable {
     field Array root, elements;
 
-    constructor HuffmanTable(){
-        let root = Array.new(); //посчитать длину, вызов конструктора с аргументами сделать
-        let elements = Array.new();//посчитать длину, вызов конструктора с аргументами сделать
+    constructor HuffmanTable(int rootLen, elLen){
+        let root = Array.new(rootLen); //посчитать длину, вызов конструктора с аргументами сделать
+        let elements = Array.new(elLen); //посчитать длину, вызов конструктора с аргументами сделать
     }
 
     method bool BitsFromLengths(Array root, int element, int pos){

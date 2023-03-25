@@ -33,7 +33,7 @@ class Decoder {
     }   
 
     method void DefineHuffmanTables(int dataIndex, int dataLength) { 
-        var int off, header, sumLengths, i, staticOff; 
+        var int off, header, sumLengths, i, j, staticOff, elementsIndex; 
         var Array lengths, elements, tempArray;
         var HuffmanTable hf;
         let lengths = Array.new(16);
@@ -48,13 +48,21 @@ class Decoder {
             let lengths = Extensions.GetArray(off, off+16, 16);
             let off = off + 16;
 
-            let sumLengths = lengths[0]+lengths[1]+lengths[2]+lengths[3]+lengths[4]+lengths[5]+lengths[6]+lengths[7]+lengths[8]+lengths[9]+lengths[10]+lengths[11]+lengths[12]+lengths[13]+lengths[14]+lengths[15];
-            let elements = Array.new(sumLengths);
+            let sumLengths = lengths[0]+lengths[1]+lengths[2]+lengths[3]+lengths[4]+lengths[5]+lengths[6]+lengths[7]+lengths[8]+lengths[9]+lengths[10]+lengths[11]+lengths[12]+lengths[13]+lengths[14]+lengths[15]; //смешная операция :D
+            let elements = Array.new(sumLengths); 
             let i = 0;
+            let elementsIndex = 0;
             while(i < 16){
                 let i = i + 1;
                 let tempArray = Extensions.GetArray(off, off+lengths[i], lengths[i]);
                 let off = off + i;
+
+                let j = 0; //добавляем значения tempArray в конец elements
+                while (j < lengths[i]){ 
+                    let elements[elementsIndex] = tempArray[j];
+                    let j = j + 1;
+                    let elementsIndex = elementsIndex + 1;
+                }
             }
             
             let hf = HuffmanTable.new();
