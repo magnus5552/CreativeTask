@@ -2,9 +2,11 @@ class Stream{
     field int pos;
     field Array data;
 
-    constructor Stream(Array d){
+    constructor Stream new(Array d){
         let data = d;
         let pos = 0;
+
+        return this;
     }
 
     method bool GetBit(){
