@@ -1,0 +1,75 @@
+class IDCT 
+{
+    field Array base;
+
+    constructor IDCT new(){
+        let base = Array.new(64);
+        return this;
+    }
+
+    method Float NormCoeff(int n){
+        if (n = 0){return Float.new(0,353553391);}
+        if (~(n = 0)){return Float.new(0,5);}
+    }
+
+    method void AddIDC(int n, int m, int coeff){
+        var Float an,am;
+        let an = IDCT.NormCoeff(n);
+        let am = IDCT.NormCoeff(m);
+
+        var int y,x;
+        let y = 0;
+        let x = 0;
+        var Float nn;
+        var Float mm;
+
+        var Float npi;
+        let npi = Float.new(3,14);
+        let npi = Float.intMult(n);
+        let npi = npi.intDiv(8);
+
+        var Float mpi;
+        let mpi = Float.new(3,14);
+        let mpi = Float.intMult(m);
+        let mpi = mpi.intDiv(8);
+
+        var Float xp;
+        let xp = Float.new(0,5);
+        
+        var Float yp;
+        let yp = Float.new(0,5);
+
+        var Float something;
+
+        while(y < 8){
+            while (x < 8){
+                
+                let nn = an.Mult(Extensions.Cos(npi.Mult(xp))); //тут просто пиздец...........написать косинус :^)
+                let mm = am.Mult(Extensions.Cos(mpi.Mult(xy)));;
+
+                let something = nn.Mult(mm);
+                let something = something.intMult(coeff);
+                base[Extensions.XYtoLin(x,y)] = base[Extensions.XYtoLin(x,y)] + (something);
+                
+                do xp.intAdd(1);
+                x = x + 1;
+            }
+            do yp.intAdd(1);
+            y = y + 1;
+        }
+        return;
+    }
+
+    method void AddZigZag(int zi, int coeff){
+        var int i;
+        let i = zigzag[zi];
+
+        var int n;
+        let n = i & 7;
+        var int m;
+        let m = ; //побитовый сдвиг
+        IDCT.AddIDC(n,m,coeff);
+        return;
+    }
+
+}

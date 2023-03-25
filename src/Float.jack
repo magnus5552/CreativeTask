@@ -39,7 +39,7 @@ class Float{
         return this; 
     }
 
-    method Float mult(Float f){
+    method Float Mult(Float f){
         var Float a;
         let a = f.intMult(intPart);
         var Float b;
@@ -58,7 +58,7 @@ class Float{
 
     method Float intDiv(int d){
         var int c;
-        let c = ((intPart * accuracy) + fracPart) * d;
+        let c = ((intPart * accuracy) + fracPart) / d;
         let intPart = 0;
         let fracPart = c;
         do WPC();
