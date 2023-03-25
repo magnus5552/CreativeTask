@@ -1,4 +1,5 @@
 class Decoder {
+    field Array tables;
 
     method void Decode () {
         // Тут надо считывать байты из изображения с помощью вспомогательного класса Bytes
@@ -25,26 +26,26 @@ class Decoder {
                         } 
                     }
                 }
-            byteIndex = chunkLen;
+            let byteIndex = chunkLen;
             if (Byte.GetByte(byteIndex) = -1) { return; }
             }
         return;
     }   
 
-    function void DefineHuffmanTables(int dataLength) { 
+    method void DefineHuffmanTables(int dataIndex, int dataLength) { 
         var int off, header, sumLengths, i, staticOff; 
         var Array lengths, elements, tempArray;
+        var HuffmanTable hf;
         let lengths = Array.new(16);
-        var HuffmanTable huffmanTable;
 
-        let staticOff = 0;
+        let staticOff = dataIndex;
 
         while (dataLength > 0){
             let off = staticOff;
             let header = Bytes.GetByte(off);
             let off = off + 1;
 
-            let lengths = Extensions.GetArray(off, off+16, 16)
+            let lengths = Extensions.GetArray(off, off+16, 16);
             let off = off + 16;
 
             let sumLengths = lengths[0]+lengths[1]+lengths[2]+lengths[3]+lengths[4]+lengths[5]+lengths[6]+lengths[7]+lengths[8]+lengths[9]+lengths[10]+lengths[11]+lengths[12]+lengths[13]+lengths[14]+lengths[15];
@@ -52,16 +53,16 @@ class Decoder {
             let i = 0;
             while(i < 16){
                 let i = i + 1;
-                let tempArray = Array.new(lengths[i]);
                 let tempArray = Extensions.GetArray(off, off+lengths[i], lengths[i]);
                 let off = off + i;
             }
             
-            hf = HuffmanTable.new();
-            hf.GetHuffmanBits(lengths, elements);
-            let this.tables[header] = hf;
+            let hf = HuffmanTable.new();
+            do hf.GetHuffmanBits(lengths, elements);
+            let tables[header] = hf;
 
             let staticOff = off;
         }
+        return;
     }
 }

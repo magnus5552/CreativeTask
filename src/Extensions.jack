@@ -17,7 +17,7 @@ class Extensions {
         let result = Array.new(sliceLen);
         let i = 0;
         while(i < sliceLen) {
-            let result[i] = Bytes.GetByte(arrStart + i)
+            let result[i] = Bytes.GetByte(arrStart + i);
             let i = i + 1;
         }
         return result;
@@ -25,12 +25,11 @@ class Extensions {
 
     function int DecodeNumber (int code, int bits) {
         var int l, i;
-        let l = Pow(code, bits - 1);
+        let l = Extensions.Pow(code, bits - 1);
 
         if (bits < l) {
             return bits - (2 * l - 1);
         }
-    
         return bits;
     }
 
