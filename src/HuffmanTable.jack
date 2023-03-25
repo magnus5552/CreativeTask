@@ -1,4 +1,42 @@
 class HuffmanTable {
-    
+    field Array root, elements;
 
+    constructor HuffmanTable(){
+        let root = Array.new(); //посчитать длину, вызов конструктора с аргументами сделать
+        let elements = Array.new();//посчитать длину, вызов конструктора с аргументами сделать
+    }
+
+    method bool BitsFromLengths(Array root, int element, int pos){
+        if (root = null){
+            return false;
+        } //логику наоборот сделал
+        else{
+            if(pos = 0){
+                if //TODO... 
+            }
+        }
+    }
+
+    method GetHuffmanBits(){}//TODO
+
+    method int Find(int st){
+        var Array r;
+        var int tempInt;
+        let r = root;
+        while (~(root = null)){
+            let tempInt = Stream.GetBit(st.GetBit());
+            let r = r[tempInt];
+        }
+        return r;
+    }
+
+    method int GetCode(int st){
+        var int res;
+        while(true){
+            let res = Find(st);
+
+            if (res = 0) { return 0 }
+            else { if (~(res = -1)) { return res } }
+        }
+    }
 }

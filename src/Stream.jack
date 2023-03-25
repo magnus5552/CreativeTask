@@ -1,12 +1,13 @@
 class Stream{
     field int pos;
+    field Array data;
 
-    constructor Stream(int d){
+    constructor Stream(Array d){
         let data = d;
         let pos = 0;
     }
 
-    function bool GetBit(){
+    method bool GetBit(){
         var int b, s, temp, bitwise;
         let b = data[pos/8];
         let temp = (pos & 7);
@@ -21,7 +22,7 @@ class Stream{
         return (b / bitwise) & 1;
     }
     
-    function int GetBinN(int l){
+    method int GetBinN(int l){
         var int val;
         let val = 0;
         while (l > 0){
