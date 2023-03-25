@@ -1,46 +1,106 @@
-// This file is part of www.nand2tetris.org
-// and the book "The Elements of Computing Systems"
-// by Nisan and Schocken, MIT Press.
-// File name: projects/09/List/List.jack
-
-/** Represents a linked list of integers. */
 class List {
-    field int data;          // a list consists of a data field,
-    field List next;         // followed by a list
+    field Array _items;
+    field int Count, _itemsCount;
 
-    /* Creates a List. */
-    constructor List new(int car, List cdr) {
-        let data = car;       // the identifiers car and cdr are used in 
-        let next = cdr;       // memory of the Lisp programming language
+    constructor List new() {
+        let Count = 0;
+        let _itemsCount = 0;
         return this;
     }
 
-    /** Accessors. */
-    method int getData() { return data; }
-    method int getNext() { return next; }
+    method int Count() { return Count; }
 
-    /** Prints this list. */
-    method void print() {
-        var List current;    // initializes current to the first item
-        let current = this;  // of this list
-        while (~(current = null)) {
-            do Output.printInt(current.getData());
-            do Output.printChar(32); // prints a space
-            let current = current.getNext();
+    method int GetValue(int index) {
+        if (~(index < Count)) {
+            do Sys.error(4);
         }
+
+        return _items[index]; 
+    }
+
+    method void Add(int item) {
+        var int i;
+        var Array tempArray;
+        
+        if (_itemsCount = 0) {
+            let _items = Array.new(1);
+            let _itemsCount = 1;
+            let Count = 1;
+            let _items[0] = item;
+            return;
+        }
+
+
+        if (Count = _itemsCount) {
+            let tempArray = Array.new(_itemsCount * 2);
+            let i = 0;
+            while(i < Count) {
+                let tempArray[i] = _items[i];
+                let i = i + 1;
+            }
+            do _items.dispose();
+            let _items = tempArray;
+            let _itemsCount = _itemsCount * 2;
+        }
+
+        let _items[Count] = item;
+        let Count = Count + 1;
         return;
     }
 
-    /** Disposes this List by recursively disposing its tail. */
-    method void dispose() {
-        if (~(next = null)) {
-            do next.dispose();
+    method int Pop() {
+        var Array tempArray;
+        var int i;
+
+        if (Count = 0) {
+            do Sys.error(4);
         }
-        // Uses an OS routine to recycle this object.
+
+        if (~(Count - 1 > (_itemsCount / 2))) {
+            let tempArray = Array.new(_itemsCount / 2);
+            let i = 0;
+            while(i < Count) {
+                let tempArray[i] = _items[i];
+                let i = i + 1;
+            }
+            do _items.dispose();
+            let _items = tempArray;
+        }
+
+        let Count = Count - 1;
+        return _items[Count];
+    }
+
+    method void AddRange(Array range, int rangeLen) {
+        var Array tempArray;
+        var int size, i;
+
+        if (Count + rangeLen > _itemsCount) {
+            let size = _itemsCount;
+            while(size < Count + rangeLen) {
+                let size = size * 2;
+            }
+            let tempArray = Array.new(size);
+            let i = 0;
+            while(i < Count) {
+                let tempArray[i] = _items[i];
+                let i = i + 1;
+            }
+            do _items.dispose();
+            let _items = tempArray;
+        }
+        
+        let i = 0;
+        while(i < rangeLen) {
+            let _items[i + Count] = range[i];
+            let i = i + 1;
+        }
+        let Count = Count + rangeLen;
+        return;
+    }
+
+    method void dispose() {
         do Memory.deAlloc(this);
         return;
     }
-
-    // More list processing methods can come here.
-
 }
