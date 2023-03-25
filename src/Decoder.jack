@@ -1,28 +1,33 @@
 class Decoder {
-    function void Decode () {
-        // Тут надо считывать байты из изображения с помощью вспомогательного класса Bytes
-        var bool loop;
-        var int byteIndex, header1, header2, lenChunk, chunkIndex;
-        let byteIndex = 0;
-        while(loop){
-            let header1 = Bytes.GetByte(byteIndex);
-            let header2 = Bytes.GetByte(byteIndex+1)
 
-            if (header1 = 255 & header2 = 216) {
-                let lenChunk = 2;
+    method void Decode () {
+        // Тут надо считывать байты из изображения с помощью вспомогательного класса Bytes
+        var int byteIndex, header1, header2, chunkLen, chunkIndex;
+        let byteIndex = 0;
+        while(true){
+            let header1 = Bytes.GetByte(byteIndex);
+            let header2 = Bytes.GetByte(byteIndex+1);
+
+            if (header1 = 255 & header2 = 216) { // start of file: marker = FFD8
+                let chunkLen = 2;
             }
             else{
-                if (head1 = 255 & header2 = 217) {
+                if (header1 = 255 & header2 = 217) { // end of file: marker = FFD9
                     return;
                 } else {
-                    let lenChunk = 256 * Bytes.GetByte(byteIndex + 2) + Bytes.GetByte(byteIndex + 3) + 2;
+                    let chunkLen = 256 * Bytes.GetByte(byteIndex + 2) + Bytes.GetByte(byteIndex + 3) + 2;
                     let chunkIndex = byteIndex + 4;
                     if (header1 = 255){
-                        if (header2 = 219) { DefineQuantisationTables(chunkIndex, lenChunk);} 
-                        if (header2 = ) }
+                        if (header2 = 219) { do DefineQuantisationTables(chunkIndex, chunkLen - 4);} // quantization table: marker = FFDB
+                        if (header2 = 192) { do BaseLineDCT(chunkIndex, chunkLen - 4); } // marker = FFC0
+                        if (header2 = 196) { do DefineHuffmanTables(chunkIndex, chunkLen - 4); } // marker = FFC4
+                        if (header2 = 218) { let chunkLen = StartOfScan(byteIndex, chunkLen); }
+                        } 
                     }
                 }
+            byteIndex = chunkLen;
+            if (Byte.GetByte(byteIndex) = -1) { return; }
             }
-        }
-    }
+        return;
+    }   
 }
