@@ -1,9 +1,0 @@
-class JPEGDecoder {
-    field Array GifByteCode, CurrentFrame;
-    field int currentByteIndex;
-
-    function int Decode () {
-        // Тут надо считывать байты из изображения с помощью вспомогательного класса JPEGBytes
-
-    }
-}

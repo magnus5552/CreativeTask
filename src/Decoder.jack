@@ -1,0 +1,28 @@
+class Decoder {
+    function void Decode () {
+        // Тут надо считывать байты из изображения с помощью вспомогательного класса Bytes
+        var bool loop;
+        var int byteIndex, header1, header2, lenChunk, chunkIndex;
+        let byteIndex = 0;
+        while(loop){
+            let header1 = Bytes.GetByte(byteIndex);
+            let header2 = Bytes.GetByte(byteIndex+1)
+
+            if (header1 = 255 & header2 = 216) {
+                let lenChunk = 2;
+            }
+            else{
+                if (head1 = 255 & header2 = 217) {
+                    return;
+                } else {
+                    let lenChunk = 256 * Bytes.GetByte(byteIndex + 2) + Bytes.GetByte(byteIndex + 3) + 2;
+                    let chunkIndex = byteIndex + 4;
+                    if (header1 = 255){
+                        if (header2 = 219) { DefineQuantisationTables(chunkIndex, lenChunk);} 
+                        if (header2 = ) }
+                    }
+                }
+            }
+        }
+    }
+}

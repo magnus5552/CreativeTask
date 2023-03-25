@@ -1,0 +1,7 @@
+class Bytes {
+    
+    function int GetByte (int index) {
+        
+        return index;
+    }
+}
