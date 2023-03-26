@@ -3,6 +3,10 @@ class IDCT
     field Array base, zigzag;
     field Cos cs;
 
+    method int GetFromBase (int index) {
+        return base[index];
+    }
+
     constructor IDCT new(){
         let base = Array.new(64);
         let cs = Cos.new();
