@@ -44,7 +44,7 @@ public class ImageTranslator
     {
         var resList = new List<string>();
         resList.Add("class Bytes {");
-        resList.Add($"\tfunction int GetLen() {{ return {file.Length} }};");
+        resList.Add($"\tfunction int GetLen() {{ return {file.Length}; }}");
         resList.Add("\tfunction int GetByte (int index) {");
         
         foreach (var e in dict)
