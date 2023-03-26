@@ -1,4 +1,6 @@
-﻿namespace ImageTranslator;
+﻿using System.Diagnostics;
+
+namespace ImageTranslator;
 
 public static class Program
 {
@@ -16,7 +18,13 @@ public static class Program
         
         imageTranslator.WriteFile(destPath);
         
-        // TODO: Далее нужен код, который автоматически запускает JackCompiler и компилирует папку src
-        
+        //Далее код, который автоматически запускает JackCompiler и компилирует папку src
+
+        var compilerPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.ToString(); //путь до /CreativeTask
+
+        Process.Start(compilerPath + @"\tools\JackCompiler.bat",
+            compilerPath + @"\src");                                //Запуск JackCompiler
+
+        Process.Start(compilerPath + @"\tools\VMEmulator.bat");
     }
 }
