@@ -1,9 +1,11 @@
 class IDCT 
 {
     field Array base, zigzag;
+    field Cos cs;
 
     constructor IDCT new(){
         let base = Array.new(64);
+        let cs = Cos.new();
         return this;
     }
 
@@ -18,28 +20,14 @@ class IDCT
         var int y,x;
         let an = IDCT.NormCoeff(n);
         let am = IDCT.NormCoeff(m);
-
-        
         let y = 0;
         let x = 0;
-
-        let npi = Float.new(3,14);
-        let npi = npi.intMult(n);
-        let npi = npi.intDiv(8);
-
-        let mpi = Float.new(3,14);
-        let mpi = mpi.intMult(m);
-        let mpi = mpi.intDiv(8);
-
-        let xp = Float.new(0,5);
-        
-        let yp = Float.new(0,5);
-
+    
         while(y < 8){
             while (x < 8){
                 
-                let nn = an.Mult(Extensions.Cos(npi.Mult(xp))); 
-                let mm = am.Mult(Extensions.Cos(mpi.Mult(yp)));
+                let nn = an.Mult(cs.GetCos(n,x)); 
+                let mm = am.Mult(cs.GetCos(m,y));
 
                 let something = nn.Mult(mm);
                 let something = something.intMult(coeff);
