@@ -1,0 +1,43 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "jack: build directory",
+			"type": "shell",
+			"group": "build",
+			"command": "${workspaceFolder}/tools/JackCompiler.bat",
+			"args": ["${fileDirname}"],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			}
+		},
+		{
+			"label": "jack: open VMEmulator",
+			"type": "shell",
+			"group": "build",
+			"command": "${workspaceFolder}/tools/VMEmulator.bat",
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			}
+		},
+		{
+			"label": "jack: build jack and open emulator",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"dependsOn": [ "jack: build directory", "jack: open VMEmulator" ],
+			"dependsOrder": "sequence"
+		}
+	]
+}
