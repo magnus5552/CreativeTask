@@ -44,7 +44,7 @@ class IDCT
         while(y < 8){
             while (x < 8){
                 
-                let nn = an.Mult(Extensions.Cos(npi.Mult(xp))); //тут просто пиздец...........написать косинус :^)
+                let nn = an.Mult(Extensions.Cos(npi.Mult(xp))); 
                 let mm = am.Mult(Extensions.Cos(mpi.Mult(xy)));;
 
                 let something = nn.Mult(mm);

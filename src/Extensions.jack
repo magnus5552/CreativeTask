@@ -49,4 +49,54 @@ class Extensions {
         }
         return l;
     }
+
+    function int GetIntLen(int n){
+        var int res;
+        let res = 0;
+
+        var int k;
+        let k = n;
+
+        while (k > 0){
+            let k = k / 10;
+            let res = res + 1;
+        }
+        return res;
+    }
+
+    function int Factorial(int n){
+        var int res;
+        let res = 1;
+        var int i;
+        let i = n;
+        while (i > 0){
+            let res = res * i;
+            let i = i - 1;
+        }
+        return res;
+    }
+
+    function Float Cos(Float a){
+        var Float res;
+        let res = 1;
+        var int sign;
+        let sign = -1;
+        var int i;
+        let i = 0;
+        var Float x;
+        let x = Float.new(0,0);
+        let x = x.Add(a);
+        var Float y;
+        let y = Float.new();
+
+        while(i < 10){
+            let x = x.Mult(x);
+            let x = x.intMult(sign);
+            let y = x.intMult(1);
+            let y = y.intDiv(Extensions.Factorial(i));
+            res = res.Add(y);
+            let i = i + 2;
+        }
+        return res;
+    }
 }
