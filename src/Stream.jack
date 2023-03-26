@@ -1,20 +1,24 @@
 class Stream{
-    field int pos;
-    field Array data;
+    field int pos, index;
 
-    constructor Stream new(Array d){
-        let data = d;
+    constructor Stream new(int startIndex){
         let pos = 0;
+        let index = startIndex;
 
         return this;
     }
 
-    method bool GetBit(){
+    method int GetBit(){
         var int b, s, temp, bitwise;
-        let b = data[pos/8];
+
+        let b = Bytes.GetByte(index + pos/8);
         let temp = (pos & 7);
         let s = 7 - temp;
         let pos = pos + 1;
+        
+        if(b = 255) {
+            let pos = pos + 8;
+        }
 
         let bitwise = 2;
         while (s > 0){
