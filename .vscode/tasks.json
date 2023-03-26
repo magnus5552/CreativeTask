@@ -6,7 +6,9 @@
 			"type": "shell",
 			"group": "build",
 			"command": "${workspaceFolder}/tools/JackCompiler.bat",
-			"args": ["${fileDirname}"],
+			"args": [
+				"${fileDirname}"
+			],
 			"presentation": {
 				"echo": true,
 				"reveal": "always",
@@ -14,7 +16,26 @@
 				"panel": "shared",
 				"showReuseMessage": true,
 				"clear": false
-			}
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "jack: build file",
+			"type": "shell",
+			"group": "build",
+			"command": "${workspaceFolder}/tools/JackCompiler.bat",
+			"args": [
+				"${file}"
+			],
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"problemMatcher": []
 		},
 		{
 			"label": "jack: open VMEmulator",
@@ -36,8 +57,12 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"dependsOn": [ "jack: build directory", "jack: open VMEmulator" ],
-			"dependsOrder": "sequence"
+			"dependsOn": [
+				"jack: build directory",
+				"jack: open VMEmulator"
+			],
+			"dependsOrder": "sequence",
+			"problemMatcher": []
 		}
 	]
 }
