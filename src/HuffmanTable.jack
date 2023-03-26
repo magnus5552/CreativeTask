@@ -1,42 +1,78 @@
 class HuffmanTable {
-    field Array root, elements;
+    field List root;
 
-    constructor HuffmanTable(int rootLen, elLen){
-        let root = Array.new(rootLen); //посчитать длину, вызов конструктора с аргументами сделать
-        let elements = Array.new(elLen); //посчитать длину, вызов конструктора с аргументами сделать
+    constructor HuffmanTable new(){
+        let root = List.new();
+        return this;
     }
 
-    method bool BitsFromLengths(Array root, int element, int pos){
-        if (root = null){
+    method bool BitsFromLengths(List root, int element, int pos){
+        var int i, ferrum; //ferrum потому что я устал придумывать переменные :)))):):):)
+        var List emptylist;
+        if (root.Count() = 0){
             return false;
         } //логику наоборот сделал
         else{
-            if(pos = 0){
-                if //TODO... 
+            if (pos = 0){
+                if (root.Count() < 2){
+                    do root.Add(element);
+                    return true;
+                }
+                return false;
+            }
+
+            let i = 0;
+            let emptylist = List.new();
+            while (i < 2){
+                if (root.Count() = i){
+                    do root.Add(emptylist);
+                }
+                let ferrum = root.GetValue(i);
+                if (BitsFromLengths(ferrum, element, pos-1)){
+                    return true;
+                }
+                let i = i + 1;
             }
         }
+        return false;
     }
 
-    method GetHuffmanBits(){}//TODO
+    method void GetHuffmanBits(Array lengths, Array elements1){
+        var int ii, i, j, sugar; // sugar xD
+        let ii = 0;
+        let i = 0;
+        while (i < 16){ 
+            let sugar = lengths[i];
+            let j = 0;
+            while (j < sugar){
+                do BitsFromLengths(root, elements1[ii], i);
+                let ii = ii + 1;
+                let j = j + 1;
+            }
+            let i = i + 1;
+        }
+        return;
+    }
 
-    method int Find(int st){
+    method int Find(Stream st){
         var Array r;
         var int tempInt;
         let r = root;
         while (~(root = null)){
-            let tempInt = Stream.GetBit(st.GetBit());
+            let tempInt = st.GetBit();
             let r = r[tempInt];
         }
         return r;
     }
 
-    method int GetCode(int st){
+    method int GetCode(Stream st){
         var int res;
         while(true){
             let res = Find(st);
 
-            if (res = 0) { return 0 }
-            else { if (~(res = -1)) { return res } }
+            if (res = 0) { return 0; }
+            else { if (~(res = -1)) { return res; } }
         }
+        return -1;
     }
 }

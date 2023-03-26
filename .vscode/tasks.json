@@ -22,7 +22,10 @@
 		{
 			"label": "jack: build file",
 			"type": "shell",
-			"group": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
 			"command": "${workspaceFolder}/tools/JackCompiler.bat",
 			"args": [
 				"${file}"
@@ -53,10 +56,7 @@
 		},
 		{
 			"label": "jack: build jack and open emulator",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
+			"group": "build",
 			"dependsOn": [
 				"jack: build directory",
 				"jack: open VMEmulator"
