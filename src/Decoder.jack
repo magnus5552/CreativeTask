@@ -1,5 +1,7 @@
 class Decoder {
-    field Array tables;
+    field int width, height, dccoeff;
+    field Array tables, quantizationTable;
+    field List quantMapping;
 
     method void Decode () {
         // Тут надо считывать байты из изображения с помощью вспомогательного класса Bytes
@@ -19,18 +21,120 @@ class Decoder {
                     let chunkLen = 256 * Bytes.GetByte(byteIndex + 2) + Bytes.GetByte(byteIndex + 3) + 2;
                     let chunkIndex = byteIndex + 4;
                     if (header1 = 255){
-                        if (header2 = 219) { do DefineQuantisationTables(chunkIndex, chunkLen - 4);} // quantization table: marker = FFDB
+                        if (header2 = 219) { do DefineQuantizationTables(chunkIndex, chunkLen - 4);} // quantization table: marker = FFDB
                         if (header2 = 192) { do BaseLineDCT(chunkIndex, chunkLen - 4); } // marker = FFC0
                         if (header2 = 196) { do DefineHuffmanTables(chunkIndex, chunkLen - 4); } // marker = FFC4
                         if (header2 = 218) { let chunkLen = StartOfScan(byteIndex, chunkLen); }
                         } 
                     }
                 }
-            let byteIndex = chunkLen;
+            let byteIndex = byteIndex + chunkLen;
             if (Byte.GetByte(byteIndex) = -1) { return; }
             }
         return;
-    }   
+    }
+
+    method IDCT BuildMatrix(Stream stream, int oldccoeff) {
+        var IDCT inverseDCT;
+        var HuffmanTable DC, AC;
+        var int code, bits, l, coeff;
+
+        let DC = tables[0];
+        let AC = tables[1];
+        let code = DC.GetCode(stream);
+        let bits = stream.GetBinN(code);
+
+        let dccoeff = Extensions.DecodeNumber(code, bits) + oldccoeff;
+
+        do inverseDCT.AddZigZag(0, dccoeff * quantizationTable[0]);
+        let l = 1;
+
+        while(l < 64) {
+            let code = AC.GetCode(stream);
+
+            if (code = 0) {
+                return inverseDCT;
+            }
+
+            if (code > 15) {
+                let l = l + (code / 16);
+                let code = code & 15;
+            }
+
+            let bits = stream.GetBinN(code);
+
+            if (l < 64) {
+                let coeff = Extensions.DecodeNumber(code, bits);
+                do inverseDCT.AddZigZag(l, coeff * quantizationTable[l]);
+                let l = l + 1;
+            }
+        }
+        return inverseDCT;
+    }
+
+    method int StartOfScan (int chunkIndex, int chunkLen) {
+        var Stream stream;
+        var IDCT matL;
+        var int oldLumdcCoeff, y, x, yy, xx, color;
+
+        let stream = Stream.new(chunkIndex + chunkLen);
+        let y = 0;
+        while(y < height / 8) {
+            let x = 0;
+            while(x < width / 8) {
+                let matL = BuildMatrix(stream, oldLumdcCoeff);
+                let oldLumdcCoeff = dccoeff;
+                
+                let yy = 0;
+                while(yy < 8) {
+                    let xx = 0;
+                    while(xx < 8) {
+                        let color = matL.GetFromBase(Extensions.XYtoLin(xx, yy));
+                        do Screen.setColor(0);
+                        do Screen.drawPixel(x * 8 + xx, y * 8 + yy);
+                        let xx = xx + 1;
+                    }
+                    let yy = yy + 1;
+                }
+                do matL.dispose();
+                let x = x + 1;
+            }
+            let y = y + 1;
+        }
+        return Byte.GetLen() - chunkIndex - 2; 
+    }
+
+    method void DefineQuantizationTables (int chunkIndex, int chunkLen) {
+        var int chunkPointer, header;
+        let chunkPointer = chunkIndex;
+        while(chunkPointer < chunkIndex + chunkLen) {
+            let header = Bytes.GetByte(chunkPointer);
+            if (header = 0) {
+                let quantizationTable = Extensions.GetArray(chunkPointer + 1, chunkPointer + 1 + 64, 64);
+                let chunkPointer = chunkPointer + 65;
+            }
+        }
+        
+        return;
+    }
+
+    method void BaseLineDCT(int chunkIndex, int chunkLen) {
+        var int header, components, i, id, samp, QtbId;
+
+        let header = Bytes.GetByte(chunkIndex);
+        let height = Bytes.GetByte(chunkIndex + 1);
+        let width = Bytes.GetByte(chunkIndex + 2);
+        let components = Bytes.GetByte(chunkIndex + 3);
+
+        let i = 0;
+        while(i < components) {
+            let id = Bytes.GetByte(chunkIndex + 6 + (i * 3));
+            let samp = Bytes.GetByte(chunkIndex + 7 + (i * 3));
+            let QtbId = Bytes.GetByte(chunkIndex + 8 + (i * 3));
+            do quantMapping.Add(QtbId);
+        }
+        return;
+    }
 
     method void DefineHuffmanTables(int dataIndex, int dataLength) { 
         var int off, header, sumLengths, i, j, staticOff, elementsIndex; 
