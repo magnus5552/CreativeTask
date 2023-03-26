@@ -24,11 +24,11 @@ class IDCT
         let x = 0;
 
         let npi = Float.new(3,14);
-        let npi = Float.intMult(n);
+        let npi = npi.intMult(n);
         let npi = npi.intDiv(8);
 
         let mpi = Float.new(3,14);
-        let mpi = Float.intMult(m);
+        let mpi = mpi.intMult(m);
         let mpi = mpi.intDiv(8);
 
         let xp = Float.new(0,5);
