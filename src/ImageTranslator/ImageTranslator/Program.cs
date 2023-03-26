@@ -8,7 +8,7 @@ public static class Program
         var file = File.ReadAllBytes(path);
 
         if (file.Length > 32768) 
-            throw new OverflowException("Слишком большой файл! Размер файла не должен превышать 32КБ");
+            throw new FileLoadException("Слишком большой файл! Размер файла не должен превышать 32КБ");
         
         var imageTranslator = new ImageTranslator(file);
         
@@ -17,5 +17,6 @@ public static class Program
         imageTranslator.WriteFile(destPath);
         
         // TODO: Далее нужен код, который автоматически запускает JackCompiler и компилирует папку src
+        
     }
 }
