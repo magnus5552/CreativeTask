@@ -29,7 +29,7 @@ class Float{
         if ((intPart < 0) & (fracPart > 0)){
             let fracPart = (-accuracy) + fracPart;
             if(intPart < 0){
-                let intPart = intPart - 1;
+                let intPart = intPart + 1;
             }
         }
         return;
