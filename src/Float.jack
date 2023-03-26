@@ -10,8 +10,8 @@ class Float{
         var int deg;
         let intPart = x; 
         let deg = Extensions.GetIntLen(y);
-        if (deg > 10){let deg = 10;}
-        let fracPart = y * Extensions.Pow(10, (10 - deg));//ффффф
+        if (deg > 5){let deg = 5;}
+        let fracPart = y * Extensions.Pow(10, (5 - deg));//ффффф
         let accuracy = 10000;
         do WPC();
         return this;
@@ -64,7 +64,7 @@ class Float{
 
         let c = (f.GetIntPart() * accuracy + f.GetFracPart()) * fracPart;
         let deg = Extensions.GetIntLen(fracPart);
-        let c = c / (Extensions.Pow(10, (10 - deg)));
+        let c = c / (Extensions.Pow(10, (5 - deg)));
        
         let d = (a.GetIntPart() * accuracy + a.GetFracPart());
         let intPart = 0;
