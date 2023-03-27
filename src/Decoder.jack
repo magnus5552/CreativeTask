@@ -1,12 +1,10 @@
 class Decoder {
     field int width, height, dccoeff;
     field Array tables, quantizationTable;
-    field List quantMapping;
 
     constructor Decoder new() {
         let tables = Array.new(17);
         let quantizationTable = Array.new(64);
-        let quantMapping = List.new();
         return this;
     }
 
@@ -147,15 +145,6 @@ class Decoder {
         let header = Bytes.GetByte(chunkIndex);
         let height = Bytes.GetByte(chunkIndex + 1) * 256 + Bytes.GetByte(chunkIndex + 2);
         let width = Bytes.GetByte(chunkIndex + 3) * 256 + Bytes.GetByte(chunkIndex + 4);
-
-        let i = 0;
-        while(i < components) {
-            let id = Bytes.GetByte(chunkIndex + 6 + (i * 3));
-            let samp = Bytes.GetByte(chunkIndex + 7 + (i * 3));
-            let QtbId = Bytes.GetByte(chunkIndex + 8 + (i * 3));
-            let i = i + 1;
-            do quantMapping.Add(QtbId);
-        }
         return;
     }
 

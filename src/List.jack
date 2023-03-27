@@ -13,7 +13,7 @@ class List {
     method int Count() { return Count; }
     method int Type() { return type; }
 
-    method int GetValue(int index) {
+    method List GetValue(int index) {
         if (index = -1) {
             return value;
         }

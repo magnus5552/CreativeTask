@@ -2,16 +2,8 @@ class Main {
 
 	function void main() {
 		var Decoder decoder;
-		var Float result;
-		var GigachadInt i;
-		var Array arr;
 
 		do Float.init();
-		let i = GigachadInt.new(7);
-
-		let arr = i;
-
-		do Output.printInt(arr[1]);
 
 		let decoder = Decoder.new();
 

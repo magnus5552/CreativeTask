@@ -12,15 +12,13 @@ class Stream{
         var int b, s, temp, bitwise;
 
         let b = Bytes.GetByte(index + (pos/8));
-        let temp = (pos & 7);
-        let s = 7 - temp;
-        let pos = pos + 1;
-
-        let bitwise = 2;
-        while (s > 0){
-            let bitwise = bitwise * 2;
-            let s = s - 1;
+        let s = 7 - (pos & 7);
+        if ((b = 0) & (Bytes.GetByte(index + (pos/8) + 1) = 0) & (Bytes.GetByte(index + (pos/8) - 1) = 255) & (Bytes.GetByte(index + (pos/8) - 2) = 255)) {
+            let pos = pos + 16;
+            let b = Bytes.GetByte(index + (pos/8));
         }
+        let pos = pos + 1;
+        let bitwise = Extensions.Pow(2, s);
         return (b / bitwise) & 1;
     }
     
