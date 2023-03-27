@@ -1,16 +1,23 @@
 class List {
+    field int type, value, _itemsCount, Count;
     field Array _items;
-    field int Count, _itemsCount;
 
     constructor List new() {
         let Count = 0;
         let _itemsCount = 0;
+        let type = 0;
+        let value = -1;
         return this;
     }
 
     method int Count() { return Count; }
+    method int Type() { return type; }
 
     method int GetValue(int index) {
+        if (index = -1) {
+            return value;
+        }
+
         if (~(index < Count)) {
             do Sys.error(4);
         }

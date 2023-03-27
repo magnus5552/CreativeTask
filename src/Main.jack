@@ -2,18 +2,21 @@ class Main {
 
 	function void main() {
 		var Decoder decoder;
-		var Float cos1, cos2, cos3, cos4;
+		var Float result;
+		var GigachadInt i;
+		var Array arr;
+
+		do Float.init();
+		let i = GigachadInt.new(7);
+
+		let arr = i;
+
+		do Output.printInt(arr[1]);
 
 		let decoder = Decoder.new();
 
 		do decoder.Decode();
 
-		let cos1 = Float.new(0, 26);
-		let cos1 = cos1.Mult(Float.new(4,0));
-		do cos1.print();
-		let cos1 = cos1.intMult(2);
-		do cos1.print();
-		
 		return;
 	}
 }

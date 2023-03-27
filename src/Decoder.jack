@@ -59,7 +59,8 @@ class Decoder {
         let l = 1;
         while(l < 64) {
             let code = AC.GetCode(stream);
-
+            do Output.printInt(code);
+            do Output.println();
             if (code = 0) {
                 return inverseDCT;
             }
@@ -103,7 +104,8 @@ class Decoder {
                     let xx = 0;
                     while(xx < 8) {
                         let color = matL.GetFromBase(Extensions.XYtoLin(xx, yy));
-                        if (color.GetFracPart() > 0) { 
+                        //do color.print(6);
+                        if (color.isPos()) { 
                             do Screen.setColor(true); 
                         }
                         else { 

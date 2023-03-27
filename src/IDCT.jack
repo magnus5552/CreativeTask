@@ -7,7 +7,7 @@ class IDCT
         let base = Array.new(64);
         let i = 0;
         while(i < 64) {
-            let base[i] = Float.new(0, 0);
+            let base[i] = Float.new();
             let i = i + 1;
         }
         return this;
@@ -17,14 +17,8 @@ class IDCT
         return base[index];
     }
 
-    function Float NormCoeff(int n){
-        if (n = 0){return Float.new(0,353);}
-
-        return Float.new(0,5);
-    }
-
     method void AddIDC(int n, int m, int coeff){
-        var Float an,am, mm, nn, something;
+        var Float mm, nn, something;
         var int y, x, linXY;
         let y = 0;
         let x = 0;
@@ -34,17 +28,15 @@ class IDCT
                 
                 let nn = Cos.GetCos(n,x);
                 let mm = Cos.GetCos(m,y);
-                let something = Float.new(coeff, 0);
 
-                let something = something.Mult(nn);
+                let something = mm.mult(nn);
                 do nn.dispose();
-                let something = something.Mult(mm);
-                do mm.dispose();
-                
+
+                let something = something.multInt(coeff);
+            
                 let linXY = Extensions.XYtoLin(x,y);
                 
-                let base[linXY] = something.Add(base[linXY]);
-                do something.dispose();
+                let base[linXY] = something.add(base[linXY]);
                 let x = x + 1;
             }
             let y = y + 1;

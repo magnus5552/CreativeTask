@@ -6,7 +6,7 @@ class HuffmanTable {
         return this;
     }
 
-    method bool BitsFromLengths(List root, int element, int pos){
+    method bool BitsFromLengths(List root, GigachadInt element, int pos){
         var int i, ferrum; //ferrum потому что я устал придумывать переменные :)))):):):)
         var List emptylist;
         if (root.Count() = 0){
@@ -15,7 +15,7 @@ class HuffmanTable {
         else{
             if (pos = 0){
                 if (root.Count() < 2){
-                    do root.Add(element);
+                    do root.Add(GigachadInt.newChad(element));
                     return true;
                 }
                 return false;
@@ -28,7 +28,7 @@ class HuffmanTable {
                     do root.Add(emptylist);
                 }
                 let ferrum = root.GetValue(i);
-                if (BitsFromLengths(ferrum, element, pos-1)){
+                if (BitsFromLengths(ferrum, GigachadInt.newChad(element), pos-1)){
                     return true;
                 }
                 let i = i + 1;
@@ -45,7 +45,7 @@ class HuffmanTable {
             let sugar = lengths[i];
             let j = 0;
             while (j < sugar){
-                do BitsFromLengths(root, elements1[ii], i);
+                do BitsFromLengths(root, GigachadInt.new(elements1[ii]), i);
                 let ii = ii + 1;
                 let j = j + 1;
             }
@@ -55,21 +55,21 @@ class HuffmanTable {
     }
 
     method int Find(Stream st){
-        var Array r;
+        var List r;
+        var Array result;
         let r = root;
-        while (~(r = null)){
-            let r = r[st.GetBit()];
+        while (r.Type() = 0){
+            let r = r.GetValue(st.GetBit());
         }
-        return r;
+
+        return r.GetValue(-1);
     }
 
     method int GetCode(Stream st){
         var int res;
         while(true){
             let res = Find(st);
-
-            if (res = 0) { return 0; }
-            else { if (~(res = -1)) { return res; } }
+            if (~(res = -1)) { return res; }
         }
         return -1;
     }

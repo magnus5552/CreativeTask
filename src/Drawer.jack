@@ -1,8 +1,0 @@
-
-class Drawer {
-    /** Рисует изображение, представленное массивом из 8192 чисел, каждое из которых обозначает блок из 16 пикселей*/
-    function void Draw (Array Image, int height, int width) {
-        
-        return;
-    }
-}

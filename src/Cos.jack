@@ -1,87 +1,91 @@
 class Cos {
     
     function Float GetCos(int n, int x){
+    var Float result;
+    let result = Float.new();
+
 	if (n = 0) {
-		if (x = 0) { return Float.new(0, 353); }
-		if (x = 1) { return Float.new(0, 353); }
-		if (x = 2) { return Float.new(0, 353); }
-		if (x = 3) { return Float.new(0, 353); }
-		if (x = 4) { return Float.new(0, 353); }
-		if (x = 5) { return Float.new(0, 353); }
-		if (x = 6) { return Float.new(0, 353); }
-		if (x = 7) { return Float.new(0, 353); }
+		if (x = 0) { do result.setInt(353); }
+		if (x = 1) { do result.setInt(353); }
+		if (x = 2) { do result.setInt(353); }
+		if (x = 3) { do result.setInt(353); }
+		if (x = 4) { do result.setInt(353); }
+		if (x = 5) { do result.setInt(353); }
+		if (x = 6) { do result.setInt(353); }
+		if (x = 7) { do result.setInt(353); }
 	}
 	if (n = 1) {
-		if (x = 0) { return Float.new(0, 490); }
-		if (x = 1) { return Float.new(0, 415); }
-		if (x = 2) { return Float.new(0, 277); }
-		if (x = 3) { return Float.new(0, 97); }
-		if (x = 4) { return Float.new(0, -98); }
-		if (x = 5) { return Float.new(0, -278); }
-		if (x = 6) { return Float.new(0, -416); }
-		if (x = 7) { return Float.new(0, -491); }
+		if (x = 0) { do result.setInt(490); }
+		if (x = 1) { do result.setInt(415); }
+		if (x = 2) { do result.setInt(277); }
+		if (x = 3) { do result.setInt(97); }
+		if (x = 4) { do result.setInt(-98); }
+		if (x = 5) { do result.setInt(-278); }
+		if (x = 6) { do result.setInt(-416); }
+		if (x = 7) { do result.setInt(-491); }
 	}
 	if (n = 2) {
-		if (x = 0) { return Float.new(0, 461); }
-		if (x = 1) { return Float.new(0, 191); }
-		if (x = 2) { return Float.new(0, -192); }
-		if (x = 3) { return Float.new(0, -462); }
-		if (x = 4) { return Float.new(0, -462); }
-		if (x = 5) { return Float.new(0, -192); }
-		if (x = 6) { return Float.new(0, 191); }
-		if (x = 7) { return Float.new(0, 461); }
+		if (x = 0) { do result.setInt(461); }
+		if (x = 1) { do result.setInt(191); }
+		if (x = 2) { do result.setInt(-192); }
+		if (x = 3) { do result.setInt(-462); }
+		if (x = 4) { do result.setInt(-462); }
+		if (x = 5) { do result.setInt(-192); }
+		if (x = 6) { do result.setInt(191); }
+		if (x = 7) { do result.setInt(461); }
 	}
 	if (n = 3) {
-		if (x = 0) { return Float.new(0, 415); }
-		if (x = 1) { return Float.new(0, -98); }
-		if (x = 2) { return Float.new(0, -491); }
-		if (x = 3) { return Float.new(0, -278); }
-		if (x = 4) { return Float.new(0, 277); }
-		if (x = 5) { return Float.new(0, 490); }
-		if (x = 6) { return Float.new(0, 97); }
-		if (x = 7) { return Float.new(0, -416); }
+		if (x = 0) { do result.setInt(415); }
+		if (x = 1) { do result.setInt(-98); }
+		if (x = 2) { do result.setInt(-491); }
+		if (x = 3) { do result.setInt(-278); }
+		if (x = 4) { do result.setInt(277); }
+		if (x = 5) { do result.setInt(490); }
+		if (x = 6) { do result.setInt(97); }
+		if (x = 7) { do result.setInt(-416); }
 	}
 	if (n = 4) {
-		if (x = 0) { return Float.new(0, 353); }
-		if (x = 1) { return Float.new(0, -354); }
-		if (x = 2) { return Float.new(0, -354); }
-		if (x = 3) { return Float.new(0, 353); }
-		if (x = 4) { return Float.new(0, 353); }
-		if (x = 5) { return Float.new(0, -354); }
-		if (x = 6) { return Float.new(0, -354); }
-		if (x = 7) { return Float.new(0, 353); }
+		if (x = 0) { do result.setInt(353); }
+		if (x = 1) { do result.setInt(-354); }
+		if (x = 2) { do result.setInt(-354); }
+		if (x = 3) { do result.setInt(353); }
+		if (x = 4) { do result.setInt(353); }
+		if (x = 5) { do result.setInt(-354); }
+		if (x = 6) { do result.setInt(-354); }
+		if (x = 7) { do result.setInt(353); }
 	}
 	if (n = 5) {
-		if (x = 0) { return Float.new(0, 277); }
-		if (x = 1) { return Float.new(0, -491); }
-		if (x = 2) { return Float.new(0, 97); }
-		if (x = 3) { return Float.new(0, 415); }
-		if (x = 4) { return Float.new(0, -416); }
-		if (x = 5) { return Float.new(0, -98); }
-		if (x = 6) { return Float.new(0, 490); }
-		if (x = 7) { return Float.new(0, -278); }
+		if (x = 0) { do result.setInt(277); }
+		if (x = 1) { do result.setInt(-491); }
+		if (x = 2) { do result.setInt(97); }
+		if (x = 3) { do result.setInt(415); }
+		if (x = 4) { do result.setInt(-416); }
+		if (x = 5) { do result.setInt(-98); }
+		if (x = 6) { do result.setInt(490); }
+		if (x = 7) { do result.setInt(-278); }
 	}
 	if (n = 6) {
-		if (x = 0) { return Float.new(0, 191); }
-		if (x = 1) { return Float.new(0, -462); }
-		if (x = 2) { return Float.new(0, 461); }
-		if (x = 3) { return Float.new(0, -192); }
-		if (x = 4) { return Float.new(0, -192); }
-		if (x = 5) { return Float.new(0, 461); }
-		if (x = 6) { return Float.new(0, -462); }
-		if (x = 7) { return Float.new(0, 191); }
+		if (x = 0) { do result.setInt(191); }
+		if (x = 1) { do result.setInt(-462); }
+		if (x = 2) { do result.setInt(461); }
+		if (x = 3) { do result.setInt(-192); }
+		if (x = 4) { do result.setInt(-192); }
+		if (x = 5) { do result.setInt(461); }
+		if (x = 6) { do result.setInt(-462); }
+		if (x = 7) { do result.setInt(191); }
 	}
 	if (n = 7) {
-		if (x = 0) { return Float.new(0, 97); }
-		if (x = 1) { return Float.new(0, -278); }
-		if (x = 2) { return Float.new(0, 415); }
-		if (x = 3) { return Float.new(0, -491); }
-		if (x = 4) { return Float.new(0, 490); }
-		if (x = 5) { return Float.new(0, -416); }
-		if (x = 6) { return Float.new(0, 277); }
-		if (x = 7) { return Float.new(0, -98); }
+		if (x = 0) { do result.setInt(97); }
+		if (x = 1) { do result.setInt(-278); }
+		if (x = 2) { do result.setInt(415); }
+		if (x = 3) { do result.setInt(-491); }
+		if (x = 4) { do result.setInt(490); }
+		if (x = 5) { do result.setInt(-416); }
+		if (x = 6) { do result.setInt(277); }
+		if (x = 7) { do result.setInt(-98); }
 	}
         
-        return -1;
+    do result.divInt(1000);
+    return result;
     }
 }

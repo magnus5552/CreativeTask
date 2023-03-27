@@ -11,14 +11,10 @@ class Stream{
     method int GetBit(){
         var int b, s, temp, bitwise;
 
-        let b = Bytes.GetByte(index + pos/8);
+        let b = Bytes.GetByte(index + (pos/8));
         let temp = (pos & 7);
         let s = 7 - temp;
         let pos = pos + 1;
-        
-        if(b = 255) {
-            let pos = pos + 8;
-        }
 
         let bitwise = 2;
         while (s > 0){
@@ -33,6 +29,7 @@ class Stream{
         let val = 0;
         while (l > 0){
             let val = val * 2 + GetBit();
+            let l = l - 1;
         }
         return val;
     }
