@@ -1,10 +1,12 @@
-/**
- * From nand to donut
- */
 class Main {
-  /** Program entry point */
-  function void main() {
 
-    return;
-  }
+	function void main() {
+		var Decoder decoder;
+
+		let decoder = Decoder.new();
+
+		do decoder.Decode();
+
+		return;
+	}
 }

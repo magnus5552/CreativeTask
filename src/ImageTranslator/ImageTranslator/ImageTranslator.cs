@@ -49,7 +49,7 @@ public class ImageTranslator
         
         foreach (var e in dict)
         {
-            resList.Add($"\t\tif ({String.Join(" | ", e.Value.Select(index => $"index = {index}"))}) {{");
+            resList.Add($"\t\tif ({String.Join(" | ", e.Value.Select(index => $"(index = {index})"))}) {{");
             //resList.AddRange(e.Value.Select(index => $"index = {e}")); //все значения индекса на уникальный бит
             
             resList.Add($"\t\t\treturn {e.Key};");

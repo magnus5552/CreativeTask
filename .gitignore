@@ -1,3 +1,4 @@
+.vscode
 /src/*.vm
 # Common IntelliJ Platform excludes
 

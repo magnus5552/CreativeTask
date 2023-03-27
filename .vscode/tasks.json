@@ -4,7 +4,10 @@
 		{
 			"label": "jack: build directory",
 			"type": "shell",
-			"group": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
 			"command": "${workspaceFolder}/tools/JackCompiler.bat",
 			"args": [
 				"${fileDirname}"
@@ -22,10 +25,7 @@
 		{
 			"label": "jack: build file",
 			"type": "shell",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
+			"group": "build",
 			"command": "${workspaceFolder}/tools/JackCompiler.bat",
 			"args": [
 				"${file}"

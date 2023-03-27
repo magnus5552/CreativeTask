@@ -1,84 +1,83 @@
 class Cos {
-    field Array arr;
-    let arr = Array.new(8);
-    let arr[0] = Array.new(8);
-    let arr[1] = Array.new(8);
-    let arr[2] = Array.new(8);
-    let arr[3] = Array.new(8);
-    let arr[4] = Array.new(8);
-    let arr[5] = Array.new(8);
-    let arr[6] = Array.new(8);
-    let arr[7] = Array.new(8);
+    
+    constructor Cos new() { return this; }
 
-    constructor Cos new(){
-        let arr[0][0] = Float.new(1,0);
-        let arr[0][1] = Float.new(1,0);
-        let arr[0][2] = Float.new(1,0);
-        let arr[0][3] = Float.new(1,0);
-        let arr[0][4] = Float.new(1,0);
-        let arr[0][5] = Float.new(1,0);
-        let arr[0][6] = Float.new(1,0);
-        let arr[0][7] = Float.new(1,0);
-        let arr[1][0] = Float.new(0,981);
-        let arr[1][1] = Float.new(0,831);
-        let arr[1][2] = Float.new(0,556);
-        let arr[1][3] = Float.new(0,195);
-        let arr[1][4] = Float.new(0,-195);
-        let arr[1][5] = Float.new(0,-556);
-        let arr[1][6] = Float.new(0,-831);
-        let arr[1][7] = Float.new(0,-981);
-        let arr[2][0] = Float.new(0,924);
-        let arr[2][1] = Float.new(0,383);
-        let arr[2][2] = Float.new(0,-383);
-        let arr[2][3] = Float.new(0,-924);
-        let arr[2][4] = Float.new(0,-924);
-        let arr[2][5] = Float.new(0,-383);
-        let arr[2][6] = Float.new(0,383);
-        let arr[2][7] = Float.new(0,924);
-        let arr[3][0] = Float.new(0,831);
-        let arr[3][1] = Float.new(0,-195);
-        let arr[3][2] = Float.new(0,-981);
-        let arr[3][3] = Float.new(0,-556);
-        let arr[3][4] = Float.new(0,556);
-        let arr[3][5] = Float.new(0,981);
-        let arr[3][6] = Float.new(0,195);
-        let arr[3][7] = Float.new(0,-831);
-        let arr[4][0] = Float.new(0,707);
-        let arr[4][1] = Float.new(0,-707);
-        let arr[4][2] = Float.new(0,-707);
-        let arr[4][3] = Float.new(0,707);
-        let arr[4][4] = Float.new(0,707);
-        let arr[4][5] = Float.new(0,-707);
-        let arr[4][6] = Float.new(0,-707);
-        let arr[4][7] = Float.new(0,707);
-        let arr[5][0] = Float.new(0,556);
-        let arr[5][1] = Float.new(0,-981);
-        let arr[5][2] = Float.new(0,195);
-        let arr[5][3] = Float.new(0,831);
-        let arr[5][4] = Float.new(0,-831);
-        let arr[5][5] = Float.new(0,-195);
-        let arr[5][6] = Float.new(0,981);
-        let arr[5][7] = Float.new(0,-556);
-        let arr[6][0] = Float.new(0,383);
-        let arr[6][1] = Float.new(0,-924);
-        let arr[6][2] = Float.new(0,924);
-        let arr[6][3] = Float.new(0,-383);
-        let arr[6][4] = Float.new(0,-383);
-        let arr[6][5] = Float.new(0,924);
-        let arr[6][6] = Float.new(0,-924);
-        let arr[6][7] = Float.new(0,383);
-        let arr[7][0] = Float.new(0,195);
-        let arr[7][1] = Float.new(0,-556);
-        let arr[7][2] = Float.new(0,831);
-        let arr[7][3] = Float.new(0,-981);
-        let arr[7][4] = Float.new(0,981);
-        let arr[7][5] = Float.new(0,-831);
-        let arr[7][6] = Float.new(0,556);
-        let arr[7][7] = Float.new(0,-195);
-        return this;
-    }
 
     method Float GetCos(int n, int x){
-        return arr[n][x];
+        if (n = 0) {
+            return Float.new(1, 0);
+        }
+        if (n = 1) {
+            if (x = 0) { return Float.new(0,981); }
+            if (x = 1) { return Float.new(0,831); }
+            if (x = 2) { return Float.new(0,556); }
+            if (x = 3) { return Float.new(0,195); }
+            if (x = 4) { return Float.new(0,-195); }
+            if (x = 5) { return Float.new(0,-556); }
+            if (x = 6) { return Float.new(0,-831); }
+            if (x = 1) { return Float.new(0,-981); }
+        }
+        if (n = 2) {
+            if (x = 0) { return Float.new(0,924); }
+            if (x = 1) { return Float.new(0,383); }
+            if (x = 2) { return Float.new(0,-383); }
+            if (x = 3) { return Float.new(0,-924); }
+            if (x = 4) { return Float.new(0,-924); }
+            if (x = 5) { return Float.new(0,-383); }
+            if (x = 6) { return Float.new(0,383); }
+            if (x = 1) { return Float.new(0,924); }
+        }
+        if (n = 3) {
+            if (x = 0) { return Float.new(0,831); }
+            if (x = 1) { return Float.new(0,-195); }
+            if (x = 2) { return Float.new(0,-981); }
+            if (x = 3) { return Float.new(0,-556); }
+            if (x = 4) { return Float.new(0,556); }
+            if (x = 5) { return Float.new(0,981); }
+            if (x = 6) { return Float.new(0,195); }
+            if (x = 1) { return Float.new(0,-831); }
+        }
+        if (n = 4) {
+            if (x = 0) { return Float.new(0,707); }
+            if (x = 1) { return Float.new(0,-707); }
+            if (x = 2) { return Float.new(0,-707); }
+            if (x = 3) { return Float.new(0,707); }
+            if (x = 4) { return Float.new(0,707); }
+            if (x = 5) { return Float.new(0,-707); }
+            if (x = 6) { return Float.new(0,-707); }
+            if (x = 1) { return Float.new(0,707); }
+        }
+        if (n = 5) {
+            if (x = 0) { return Float.new(0,556); }
+            if (x = 1) { return Float.new(0,-981); }
+            if (x = 2) { return Float.new(0,195); }
+            if (x = 3) { return Float.new(0,831); }
+            if (x = 4) { return Float.new(0,-831); }
+            if (x = 5) { return Float.new(0,-195); }
+            if (x = 6) { return Float.new(0,981); }
+            if (x = 1) { return Float.new(0,-556); }
+        }
+        if (n = 6) {
+            if (x = 0) { return Float.new(0,383); }
+            if (x = 1) { return Float.new(0,-924); }
+            if (x = 2) { return Float.new(0,924); }
+            if (x = 3) { return Float.new(0,-383); }
+            if (x = 4) { return Float.new(0,-383); }
+            if (x = 5) { return Float.new(0,924); }
+            if (x = 6) { return Float.new(0,-924); }
+            if (x = 1) { return Float.new(0,383); }
+        }
+        if (n = 7) {
+            if (x = 0) { return Float.new(0,195); }
+            if (x = 1) { return Float.new(0,-556); }
+            if (x = 2) { return Float.new(0,831); }
+            if (x = 3) { return Float.new(0,-981); }
+            if (x = 4) { return Float.new(0,981); }
+            if (x = 5) { return Float.new(0,-831); }
+            if (x = 6) { return Float.new(0,556); }
+            if (x = 1) { return Float.new(0,-195); }
+        }
+        
+        return -1;
     }
 }

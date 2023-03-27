@@ -1,6 +1,6 @@
 class IDCT 
 {
-    field Array base, zigzag;
+    field Array base;
     field Cos cs;
 
     method int GetFromBase (int index) {
@@ -20,7 +20,7 @@ class IDCT
     }
 
     method void AddIDC(int n, int m, int coeff){
-        var Float an,am, mm, nn, npi, mpi, xp, yp, something;
+        var Float an,am, mm, nn, something;
         var int y,x;
         let an = IDCT.NormCoeff(n);
         let am = IDCT.NormCoeff(m);
@@ -35,12 +35,10 @@ class IDCT
 
                 let something = nn.Mult(mm);
                 let something = something.intMult(coeff);
-                let base[Extensions.XYtoLin(x,y)] = base[Extensions.XYtoLin(x,y)] + (something);
-                
-                do xp.intAdd(1);
+                let base[Extensions.XYtoLin(x,y)] = something.Add(base[Extensions.XYtoLin(x,y)]);
+
                 let x = x + 1;
             }
-            do yp.intAdd(1);
             let y = y + 1;
         }
         return;
@@ -48,11 +46,17 @@ class IDCT
 
     method void AddZigZag(int zi, int coeff){
         var int i, n, m;
-        let i = zigzag[zi];
+        let i = Extensions.GetZigZag(zi);
 
         let n = i & 7;
         let m = i / 8;
         do AddIDC(n, m, coeff);
+        return;
+    }
+
+    method void dispose() {
+        do base.dispose();
+        do Memory.deAlloc(this);
         return;
     }
 

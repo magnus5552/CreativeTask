@@ -1,5 +1,5 @@
 class Extensions {
-    
+
     function int Clamp (int color) {
         if (color > 255) { return 255; }
         if (color < 0) { return 0; }
@@ -8,9 +8,9 @@ class Extensions {
 
     function Array GetArray (int arrStart, int arrEnd, int sliceLen) {
         var Array result;
-        var int i, arrSize;
+        var int i;
 
-        if (arrEnd < arrStart + sliceLen) { 
+        if (arrEnd < (arrStart + sliceLen)) {
             do Sys.error(4);
         }
 
@@ -74,27 +74,71 @@ class Extensions {
         return res;
     }
 
-    function Float Cos(Float a){
-        var Float res, x, y;
-        var int sign, i;
-
-        let res = Float.new(1,0);
-        let sign = -1;
-        let i = 0;
-
-        let x = Float.new(0,0);
-        let x = x.Add(a);
-
-        let y = Float.new(1, 0);
-
-        while(i < 10){
-            let x = x.Mult(x);
-            let x = x.intMult(sign);
-            let y = x.intMult(1);
-            let y = y.intDiv(Extensions.Factorial(i));
-            let res = res.Add(y);
-            let i = i + 2;
-        }
-        return res;
+    function int GetZigZag(int index) {
+        if (index = 0) { return 0; }
+        if (index = 1) { return 1; }
+        if (index = 2) { return 8; }
+        if (index = 3) { return 16; }
+        if (index = 4) { return 9; }
+        if (index = 5) { return 2; }
+        if (index = 6) { return 3; }
+        if (index = 7) { return 10; }
+        if (index = 8) { return 17; }
+        if (index = 9) { return 24; }
+        if (index = 10) { return 32; }
+        if (index = 11) { return 25; }
+        if (index = 12) { return 18; }
+        if (index = 13) { return 11; }
+        if (index = 14) { return 4; }
+        if (index = 15) { return 5; }
+        if (index = 16) { return 12; }
+        if (index = 17) { return 19; }
+        if (index = 18) { return 26; }
+        if (index = 19) { return 33; }
+        if (index = 20) { return 40; }
+        if (index = 21) { return 48; }
+        if (index = 22) { return 41; }
+        if (index = 23) { return 34; }
+        if (index = 24) { return 27; }
+        if (index = 25) { return 20; }
+        if (index = 26) { return 13; }
+        if (index = 27) { return 6; }
+        if (index = 28) { return 7; }
+        if (index = 29) { return 14; }
+        if (index = 30) { return 21; }
+        if (index = 31) { return 28; }
+        if (index = 32) { return 35; }
+        if (index = 33) { return 42; }
+        if (index = 34) { return 49; }
+        if (index = 35) { return 56; }
+        if (index = 36) { return 57; }
+        if (index = 37) { return 50; }
+        if (index = 38) { return 43; }
+        if (index = 39) { return 36; }
+        if (index = 40) { return 29; }
+        if (index = 41) { return 22; }
+        if (index = 42) { return 15; }
+        if (index = 43) { return 23; }
+        if (index = 44) { return 30; }
+        if (index = 45) { return 37; }
+        if (index = 46) { return 44; }
+        if (index = 47) { return 51; }
+        if (index = 48) { return 58; }
+        if (index = 49) { return 59; }
+        if (index = 50) { return 52; }
+        if (index = 51) { return 45; }
+        if (index = 52) { return 38; }
+        if (index = 53) { return 31; }
+        if (index = 54) { return 39; }
+        if (index = 55) { return 46; }
+        if (index = 56) { return 53; }
+        if (index = 57) { return 60; }
+        if (index = 58) { return 61; }
+        if (index = 59) { return 54; }
+        if (index = 60) { return 47; }
+        if (index = 61) { return 55; }
+        if (index = 62) { return 62; }
+        if (index = 63) { return 63; }
+        return -1;
     }
 }

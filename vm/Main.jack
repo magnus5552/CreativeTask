@@ -1,0 +1,30 @@
+class Main {
+
+	function void main() {
+		var List arr1, arr2, arr3;
+		let arr1 = List.new();
+		let arr2 = List.new();
+
+		do arr1.Add(arr2);
+		do arr1.Add(1);
+		do arr1.Add(1);
+		do arr1.Add(1);
+		do arr1.Add(1);
+		do arr1.Add(1);
+		do arr1.Add(1);
+		do arr1.Add(1);
+		do arr1.Add(1);
+
+		do arr1.Pop();
+		do arr1.Pop();
+		do arr1.Pop();
+		do arr1.Pop();
+		do arr1.Pop();
+		do arr1.Pop();
+		do arr1.Pop();
+
+		do Output.printInt(arr1.GetValue(arr1.Count() - 1));
+
+		return;
+	}
+}
