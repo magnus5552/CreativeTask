@@ -25,5 +25,7 @@ class HuffmanTable {
         if (type = 16) {
             return GetCode16();
         }
+
+        return -1;
     }
 }
