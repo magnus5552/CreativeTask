@@ -27,4 +27,29 @@ public static class Program
 
         Process.Start(compilerPath + @"\tools\VMEmulator.bat");
     }
+    public static void MoveFilesToVM(){
+        var fileNames = new string[]
+        {
+            "Bytes",
+            "Cos",
+            "Decoder",
+            "Extensions",
+            "Float",
+            "GigachadInt",
+            "HuffmanTable",
+            "IDCT",
+            "List",
+            "Main",
+            "Stream"
+        };
+
+        foreach(string file in fileNames){
+            var filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.ToString();
+            var destPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.ToString();
+            filePath += file+".vm";
+            destPath+=@"\vm";
+            var fileToMove = new FileInfo(filePath);
+            fileToMove.MoveTo(destPath);
+        }
+    }
 }
