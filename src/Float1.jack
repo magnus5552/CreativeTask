@@ -1,0 +1,82 @@
+class Float1{
+    field int intPart, fracPart;
+    field int accuracy;
+
+    method int GetIntPart() { return intPart; }
+    method int GetFracPart() { return fracPart; }
+    
+    // если что-то не работает, то скорее всего здесь) узнай по поводу присваивания
+    constructor Float new(int x, int y){
+        var int deg;
+        let intPart = x; 
+        let deg = Extensions.GetIntLen(y);
+        if (deg > 4){let deg = 4;}
+        let fracPart = y * Extensions.Pow(10, (3 - deg));//ффффф
+        let accuracy = 1000;
+        do WPC();
+        return this;
+    } 
+
+    method void WPC(){
+        if(~(fracPart < accuracy)){
+            let intPart = intPart + (fracPart / accuracy);
+            let fracPart = fracPart - ((fracPart / accuracy) * accuracy);
+        }
+        if(fracPart < 0){
+            if(intPart > 0){
+                let intPart = intPart - 1;
+                let fracPart = accuracy + fracPart;
+            }  
+        }
+        if ((intPart < 0)){
+            if (fracPart > 0){
+                let fracPart = (-accuracy) + fracPart;
+                if(intPart < 0){
+                    let intPart = intPart + 1;
+                }
+            }
+        }
+        return;
+    }
+
+    method Float intAdd(int n){
+        return Float.new(intPart + n,fracPart);
+    }
+
+    method Float Add(Float f){
+        return Float.new(intPart + f.GetIntPart(),fracPart + f.GetFracPart());
+    }
+
+    method Float intMult(int n){
+        return Float.new(intPart*n,fracPart*n);
+    }
+
+    method Float Mult(Float f){
+        var int c, d, e;
+        
+        let c = fracPart * f.GetIntPart();
+        let d = f.GetFracPart() * intPart;
+        let e = (f.GetFracPart() * fracPart) / accuracy;
+        
+        return Float.new(f.GetIntPart() * intPart, c + d + e);
+    }
+
+    method Float intDiv(int d){
+        var int c;
+        let c = ((intPart * accuracy) + fracPart) / d; 
+        return Float.new(0,c);
+    }
+
+    method void print(){
+        do Output.printInt(intPart);
+        do Output.printString(",");
+        do Output.printInt(fracPart);
+        do Output.println();
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}
