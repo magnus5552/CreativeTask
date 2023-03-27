@@ -83,7 +83,8 @@ class Decoder {
     method int StartOfScan (int chunkIndex, int chunkLen) {
         var Stream stream;
         var IDCT matL;
-        var int oldLumdcCoeff, y, x, yy, xx, blocksHeight, blocksWidth, color;
+        var int oldLumdcCoeff, y, x, yy, xx, blocksHeight, blocksWidth;
+        var Float color;
 
         let stream = Stream.new(chunkIndex + chunkLen);
         
@@ -102,11 +103,18 @@ class Decoder {
                     let xx = 0;
                     while(xx < 8) {
                         let color = matL.GetFromBase(Extensions.XYtoLin(xx, yy));
-                        if (color > 0) { do Screen.setColor(1); }
-                        else { do Screen.setColor(0); }
+                        if (color.GetFracPart() > 0) { 
+                            do Screen.setColor(true); 
+                        }
+                        else { 
+                            do Screen.setColor(false); 
+                        }
+                        do color.dispose();
+
                         do Screen.drawPixel(x * 8 + xx, y * 8 + yy);
                         let xx = xx + 1;
                     }
+
                     let yy = yy + 1;
                 }
                 do matL.dispose();

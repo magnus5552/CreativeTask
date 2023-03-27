@@ -7,14 +7,13 @@ class IDCT
         let base = Array.new(64);
         let i = 0;
         while(i < 64) {
-            let base[i] = 0;
+            let base[i] = Float.new(0, 0);
             let i = i + 1;
         }
-
         return this;
     }
 
-    method int GetFromBase (int index) {
+    method Float GetFromBase (int index) {
         return base[index];
     }
 
@@ -25,30 +24,31 @@ class IDCT
     }
 
     method void AddIDC(int n, int m, int coeff){
-        var Float an,am;
-        var int y, x, linXY, mm, nn, something;
-        let an = IDCT.NormCoeff(n);
-        let am = IDCT.NormCoeff(m);
+        var Float an,am, mm, nn, something;
+        var int y, x, linXY;
         let y = 0;
         let x = 0;
     
         while(y < 8){
-            while (x < 8){
+            while (x < 8) {
                 
                 let nn = Cos.GetCos(n,x);
                 let mm = Cos.GetCos(m,y);
-                let something = nn * mm;
-                let something = something * coeff;
+                let something = Float.new(coeff, 0);
+
+                let something = something.Mult(nn);
+                do nn.dispose();
+                let something = something.Mult(mm);
+                do mm.dispose();
+                
                 let linXY = Extensions.XYtoLin(x,y);
                 
-                let base[linXY] = something + base[linXY];
-
+                let base[linXY] = something.Add(base[linXY]);
+                do something.dispose();
                 let x = x + 1;
             }
             let y = y + 1;
         }
-        do an.dispose();
-        do am.dispose();
         return;
     }
 

@@ -56,11 +56,9 @@ class HuffmanTable {
 
     method int Find(Stream st){
         var Array r;
-        var int tempInt;
         let r = root;
         while (~(r = null)){
-            let tempInt = st.GetBit();
-            let r = r[tempInt];
+            let r = r[st.GetBit()];
         }
         return r;
     }
