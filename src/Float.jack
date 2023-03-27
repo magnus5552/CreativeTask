@@ -40,46 +40,31 @@ class Float{
     }
 
     method Float intAdd(int n){
-        var Float res;
-        let res = Float.new(intPart + n,fracPart);
-        do res.WPC();
-        return res;
+        return Float.new(intPart + n,fracPart);
     }
 
     method Float Add(Float f){
-        var Float res;
-        let res = Float.new(intPart + f.GetIntPart(),fracPart + f.GetFracPart());
-        do res.WPC();
-        return res;
+        return Float.new(intPart + f.GetIntPart(),fracPart + f.GetFracPart());
     }
 
     method Float intMult(int n){
-        var Float res;
-        let res = Float.new(intPart*n,fracPart*n);
-        do res.WPC();
-        return res; 
+        return Float.new(intPart*n,fracPart*n);
     }
 
     method Float Mult(Float f){
-        var Float res;
         var int c, d, e;
         
         let c = fracPart * f.GetIntPart();
         let d = f.GetFracPart() * intPart;
         let e = (f.GetFracPart() * fracPart) / accuracy;
-        let res = Float.new(f.GetIntPart() * intPart,c + d + e);
         
-        do res.WPC();
-        return res;
+        return Float.new(f.GetIntPart() * intPart, c + d + e);
     }
 
     method Float intDiv(int d){
-        var Float res;
         var int c;
         let c = ((intPart * accuracy) + fracPart) / d; 
-        let res = Float.new(0,c);
-        do res.WPC();
-        return res;
+        return Float.new(0,c);
     }
 
     method void print(){
@@ -87,6 +72,11 @@ class Float{
         do Output.printString(",");
         do Output.printInt(fracPart);
         do Output.println();
+        return;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
         return;
     }
 }

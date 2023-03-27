@@ -1,27 +1,32 @@
 class IDCT 
 {
     field Array base;
-    field Cos cs;
+
+    constructor IDCT new(){
+        var int i;
+        let base = Array.new(64);
+        let i = 0;
+        while(i < 64) {
+            let base[i] = 0;
+            let i = i + 1;
+        }
+
+        return this;
+    }
 
     method int GetFromBase (int index) {
         return base[index];
     }
 
-    constructor IDCT new(){
-        let base = Array.new(64);
-        let cs = Cos.new();
-        return this;
-    }
-
     function Float NormCoeff(int n){
-        if (n = 0){return Float.new(0,3535);}
+        if (n = 0){return Float.new(0,353);}
 
         return Float.new(0,5);
     }
 
     method void AddIDC(int n, int m, int coeff){
-        var Float an,am, mm, nn, something;
-        var int y,x;
+        var Float an,am;
+        var int y, x, linXY, mm, nn, something;
         let an = IDCT.NormCoeff(n);
         let am = IDCT.NormCoeff(m);
         let y = 0;
@@ -30,17 +35,20 @@ class IDCT
         while(y < 8){
             while (x < 8){
                 
-                let nn = an.Mult(cs.GetCos(n,x)); 
-                let mm = am.Mult(cs.GetCos(m,y));
-
-                let something = nn.Mult(mm);
-                let something = something.intMult(coeff);
-                let base[Extensions.XYtoLin(x,y)] = something.Add(base[Extensions.XYtoLin(x,y)]);
+                let nn = Cos.GetCos(n,x);
+                let mm = Cos.GetCos(m,y);
+                let something = nn * mm;
+                let something = something * coeff;
+                let linXY = Extensions.XYtoLin(x,y);
+                
+                let base[linXY] = something + base[linXY];
 
                 let x = x + 1;
             }
             let y = y + 1;
         }
+        do an.dispose();
+        do am.dispose();
         return;
     }
 

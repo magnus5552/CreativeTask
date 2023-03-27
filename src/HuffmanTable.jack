@@ -58,7 +58,7 @@ class HuffmanTable {
         var Array r;
         var int tempInt;
         let r = root;
-        while (~(root = null)){
+        while (~(r = null)){
             let tempInt = st.GetBit();
             let r = r[tempInt];
         }

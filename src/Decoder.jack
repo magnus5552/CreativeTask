@@ -47,6 +47,7 @@ class Decoder {
         var HuffmanTable DC, AC;
         var int code, bits, l, coeff;
 
+        let inverseDCT = IDCT.new();
         let DC = tables[0];
         let AC = tables[16];
         let code = DC.GetCode(stream);
@@ -82,7 +83,7 @@ class Decoder {
     method int StartOfScan (int chunkIndex, int chunkLen) {
         var Stream stream;
         var IDCT matL;
-        var int oldLumdcCoeff, y, x, yy, xx, color, blocksHeight, blocksWidth;
+        var int oldLumdcCoeff, y, x, yy, xx, blocksHeight, blocksWidth, color;
 
         let stream = Stream.new(chunkIndex + chunkLen);
         
@@ -101,9 +102,8 @@ class Decoder {
                     let xx = 0;
                     while(xx < 8) {
                         let color = matL.GetFromBase(Extensions.XYtoLin(xx, yy));
-                        do color.print();
-                        if (color.GetFracPart() > 0) { do Screen.setColor(1); }
-                        else {do Screen.setColor(0); }
+                        if (color > 0) { do Screen.setColor(1); }
+                        else { do Screen.setColor(0); }
                         do Screen.drawPixel(x * 8 + xx, y * 8 + yy);
                         let xx = xx + 1;
                     }
@@ -169,17 +169,18 @@ class Decoder {
             let i = 0;
             let elementsIndex = 0;
             while(i < 16) {
-
-                if(lengths[i] > 0) {
-                    let tempArray = Extensions.GetArray(off, off+lengths[i], lengths[i]);
-                }
                 let off = off + i;
 
-                let j = 0; //добавляем значения tempArray в конец elements
-                while (j < lengths[i]){ 
-                    let elements[elementsIndex] = tempArray[j];
-                    let j = j + 1;
-                    let elementsIndex = elementsIndex + 1;
+                if(lengths[i] > 0) {
+                    let tempArray = Extensions.GetArray(off, off+lengths[i], lengths[i]);                
+
+                    let j = 0; //добавляем значения tempArray в конец elements
+                    while (j < lengths[i]){ 
+                        let elements[elementsIndex] = tempArray[j];
+                        let j = j + 1;
+                        let elementsIndex = elementsIndex + 1;
+                    }
+                    do tempArray.dispose();
                 }
                 let i = i + 1;
             }
