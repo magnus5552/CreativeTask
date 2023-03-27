@@ -1,79 +1,29 @@
 class HuffmanTable {
-    field List root;
+    field int Type;
+    field int CurrentCode;
 
-    constructor HuffmanTable new(){
-        let root = List.new();
+    constructor HuffmanTable new(int type){
+        let Type = type;
+        let CurrentCode = 0;
         return this;
     }
 
-    method bool BitsFromLengths(List root, GigachadInt element, int pos){
-        var int i, ferrum; //ferrum потому что я устал придумывать переменные :)))):):):)
-        var List emptylist;
-        if (root.Count() = 0){
-            return false;
-        } //логику наоборот сделал
-        else{
-            if (pos = 0){
-                if (root.Count() < 2){
-                    do root.Add(GigachadInt.newChad(element));
-                    return true;
-                }
-                return false;
-            }
-
-            let i = 0;
-            let emptylist = List.new();
-            while (i < 2){
-                if (root.Count() = i){
-                    do root.Add(emptylist);
-                }
-                let ferrum = root.GetValue(i);
-                if (BitsFromLengths(ferrum, GigachadInt.newChad(element), pos-1)){
-                    return true;
-                }
-                let i = i + 1;
-            }
-        }
-        return false;
+    method int GetCode0() {
+        if (CurrentCode = 0) { return ...}
     }
 
-    method void GetHuffmanBits(Array lengths, Array elements1){
-        var int ii, i, j, sugar; // sugar xD
-        let ii = 0;
-        let i = 0;
-        while (i < 16){ 
-            let sugar = lengths[i];
-            let j = 0;
-            while (j < sugar){
-                do BitsFromLengths(root, GigachadInt.new(elements1[ii]), i);
-                let ii = ii + 1;
-                let j = j + 1;
-            }
-            let i = i + 1;
-        }
-        return;
-    }
+    method int GetCode16() {
+        if (CurrentCode = 0) { return ...}
 
-    method int Find(Stream st){
-        var List r;
-        var Array result;
-        var int temp;
-        let r = root;
-        while (r.Count() > 0){
-            let temp = st.GetBit();
-            do Output.printInt(temp);
-            let r = r.GetValue(temp);
-        }
-
-        return result.GetValue(-1);
+        return -1;
     }
 
     method int GetCode(Stream st){
-        var int res;
-        while(true){
-            let res = Find(st);
-            if (~(res = -1)) { return res; }
+        if (type = 0) {
+            return GetCode0();
         }
-        return -1;
+        if (type = 16) {
+            return GetCode16();
+        }
     }
 }

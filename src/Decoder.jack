@@ -184,7 +184,7 @@ class Decoder {
                 let i = i + 1;
             }
             
-            let hf = HuffmanTable.new();
+            let hf = HuffmanTable.new(header);
             do hf.GetHuffmanBits(lengths, elements);
             let tables[header] = hf;
         }
