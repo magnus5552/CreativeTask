@@ -10,6 +10,8 @@ class HuffmanTable {
 
     method int GetCode0() {
         if (CurrentCode = 0) { return ...}
+
+        return -1;
     }
 
     method int GetCode16() {
@@ -20,9 +22,11 @@ class HuffmanTable {
 
     method int GetCode(Stream st){
         if (type = 0) {
+            let CurrentCode = CurrentCode + 1;
             return GetCode0();
         }
         if (type = 16) {
+            let CurrentCode = CurrentCode + 1;
             return GetCode16();
         }
 
