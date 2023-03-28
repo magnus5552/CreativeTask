@@ -47,7 +47,7 @@ class Decoder {
 
         let inverseDCT = IDCT.new();
         let DC = tables[0];
-        let AC = tables[16];
+        let AC = tables[1];
         let code = DC.GetCode(stream);
         let bits = stream.GetBinN(code);
 
@@ -57,8 +57,6 @@ class Decoder {
         let l = 1;
         while(l < 64) {
             let code = AC.GetCode(stream);
-            do Output.printInt(code);
-            do Output.println();
             if (code = 0) {
                 return inverseDCT;
             }
@@ -102,12 +100,11 @@ class Decoder {
                     let xx = 0;
                     while(xx < 8) {
                         let color = matL.GetFromBase(Extensions.XYtoLin(xx, yy));
-                        //do color.print(6);
                         if (color.isPos()) { 
-                            do Screen.setColor(true); 
+                            do Screen.setColor(false); 
                         }
                         else { 
-                            do Screen.setColor(false); 
+                            do Screen.setColor(true); 
                         }
                         do color.dispose();
 
@@ -128,12 +125,12 @@ class Decoder {
     method void DefineQuantizationTables (int chunkIndex, int chunkLen) {
         var int chunkPointer, header;
         let chunkPointer = chunkIndex;
-        while(chunkPointer < chunkIndex + chunkLen) {
+        while(chunkPointer < (chunkIndex + chunkLen)) {
             let header = Bytes.GetByte(chunkPointer);
             if (header = 0) {
                 let quantizationTable = Extensions.GetArray(chunkPointer + 1, chunkPointer + 1 + 64, 64);
-                let chunkPointer = chunkPointer + 65;
             }
+            let chunkPointer = chunkPointer + 65;
         }
         
         return;
@@ -185,8 +182,13 @@ class Decoder {
             }
             
             let hf = HuffmanTable.new(header);
-            do hf.GetHuffmanBits(lengths, elements);
-            let tables[header] = hf;
+            //do hf.GetHuffmanBits(lengths, elements);
+            if (header = 0) {
+                let tables[0] = hf;
+            }
+            if (header = 16) {
+                let tables[1] = hf;
+            } 
         }
         return;
     }

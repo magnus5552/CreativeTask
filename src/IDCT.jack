@@ -31,8 +31,9 @@ class IDCT
 
                 let something = mm.mult(nn);
                 do nn.dispose();
-
+                
                 let something = something.multInt(coeff);
+                
             
                 let linXY = Extensions.XYtoLin(x,y);
                 

@@ -22,23 +22,25 @@ public static class Program
 
         var compilerPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.ToString(); //путь до /CreativeTask
 
-        Process.Start(compilerPath + @"\tools\JackCompiler.bat",
-            compilerPath + @"\src");                                //Запуск JackCompiler
+        var compile = new Process
+            { StartInfo = new ProcessStartInfo(compilerPath + @"\tools\JackCompiler.bat", compilerPath + @"\src") };
+        compile.Start();    //Запуск JackCompiler
+        compile.WaitForExit();
+        
+        //MoveFilesToVm();
 
         Process.Start(compilerPath + @"\tools\VMEmulator.bat");
     }
-    public static void MoveFilesToVM(){
-        var fileNames = new string[]
+    public static void MoveFilesToVm(){
+        var fileNames = new []
         {
             "Bytes",
             "Cos",
             "Decoder",
             "Extensions",
             "Float",
-            "GigachadInt",
             "HuffmanTable",
             "IDCT",
-            "List",
             "Main",
             "Stream"
         };
@@ -46,10 +48,11 @@ public static class Program
         foreach(string file in fileNames){
             var filePath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.ToString();
             var destPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.ToString();
-            filePath += file+".vm";
-            destPath+=@"\vm";
+            filePath += "\\" + file + ".vm";
+            destPath += "\\vm";
+            Console.WriteLine(filePath, destPath);
             var fileToMove = new FileInfo(filePath);
-            fileToMove.MoveTo(destPath);
+            fileToMove.MoveTo(destPath, true);
         }
     }
 }
