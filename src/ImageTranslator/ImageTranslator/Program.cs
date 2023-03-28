@@ -6,7 +6,7 @@ public static class Program
 {
     public static void Main(string[] args)
     {
-        var path = args[0];
+        var path = args.Length > 0 ? args[0] : throw new ArgumentNullException();
         var file = File.ReadAllBytes(path);
 
         if (file.Length > 32768) 
@@ -14,14 +14,13 @@ public static class Program
         
         var imageTranslator = new ImageTranslator(file);
         
-        var destPath = (args.Length > 1 ? args[1] : Directory.GetCurrentDirectory()) + @"\Bytes.jack";
+        var compilerPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.ToString(); //путь до /CreativeTask
+        
+        var destPath = (args.Length > 1 ? args[1] : compilerPath + "\\src") + @"\Bytes.jack";
         
         imageTranslator.WriteFile(destPath);
         
         //Далее код, который автоматически запускает JackCompiler и компилирует папку src
-
-        var compilerPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.ToString(); //путь до /CreativeTask
-
         var compile = new Process
             { StartInfo = new ProcessStartInfo(compilerPath + @"\tools\JackCompiler.bat", compilerPath + @"\src") };
         compile.Start();    //Запуск JackCompiler
