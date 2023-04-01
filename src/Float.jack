@@ -114,6 +114,54 @@ class Float {
 
 
 	/**
+	 *	Construct a new Float with value 0.
+	 *
+	 *		let new_Float = Float.new();
+	 *
+	 *	Returns this.
+	 */
+
+	constructor Float new()
+	{
+		let msw = 0;
+		let lsw = 0;
+		let exp = MIN_EXP;
+		return this;
+	}
+
+
+	/**
+	 *	Construct a new Float from a Float.
+	 *
+	 *		let new_Float = Float.newFloat(a_Float);
+	 *
+	 *	Returns this.
+	 */
+
+	constructor Float newFloat(Float f)
+	{
+		do set(f);
+		return this;
+	}
+
+
+	/*	INTERNAL ROUTINE
+	 *
+	 *	Construct a new Float with a constant value.
+	 *
+	 *	DOES NOT CALL _normalize!
+	 *
+	 *	Returns this.
+	 */
+
+	constructor Float _newConst(int manth, int mantl, int e)
+	{
+		do _setConst(manth, mantl, e);
+		return this;
+	}
+
+	
+	/**
 	 *	Initialize the Float class.
 	 *
 	 *	You must call this before calling Float.new().
@@ -191,53 +239,34 @@ class Float {
 
 
 	/**
-	 *	Construct a new Float with value 0.
+	 *	Set this Float from another Float.
 	 *
-	 *		let new_Float = Float.new();
+	 *		do f.set(a_Float);
 	 *
 	 *	Returns this.
 	 */
 
-	constructor Float new()
+	method Float set(Float f)
 	{
-		let msw = 0;
-		let lsw = 0;
-		let exp = MIN_EXP;
-		return this;
+		return _setConst(f._msw(), f._lsw(), f._exp());
 	}
 
 
 	/**
-	 *	Construct a new Float from a Float.
+	 *	Set this Float from an int.
 	 *
-	 *		let new_Float = Float.newFloat(a_Float);
-	 *
-	 *	Returns this.
-	 */
-
-	constructor Float newFloat(Float f)
-	{
-		do set(f);
-		return this;
-	}
-
-
-	/*	INTERNAL ROUTINE
-	 *
-	 *	Construct a new Float with a constant value.
-	 *
-	 *	DOES NOT CALL _normalize!
+	 *		do f.setInt(an_int);
 	 *
 	 *	Returns this.
 	 */
 
-	constructor Float _newConst(int manth, int mantl, int e)
+	method Float setInt(int i)
 	{
-		do _setConst(manth, mantl, e);
-		return this;
+		do _setConst(i<0, i, 30);
+		return _normalize();
 	}
 
-
+	
 	/**
 	 *	Deallocate this Float.
 	 *
@@ -283,35 +312,6 @@ class Float {
 	method int _exp()
 	{
 		return exp;
-	}
-
-
-	/**
-	 *	Set this Float from another Float.
-	 *
-	 *		do f.set(a_Float);
-	 *
-	 *	Returns this.
-	 */
-
-	method Float set(Float f)
-	{
-		return _setConst(f._msw(), f._lsw(), f._exp());
-	}
-
-
-	/**
-	 *	Set this Float from an int.
-	 *
-	 *		do f.setInt(an_int);
-	 *
-	 *	Returns this.
-	 */
-
-	method Float setInt(int i)
-	{
-		do _setConst(i<0, i, 30);
-		return _normalize();
 	}
 
 
