@@ -11,6 +11,7 @@ class List {
     }
 
     method int Count() { return Count; }
+    
     method int Type() { return type; }
 
     method List GetValue(int index) {
