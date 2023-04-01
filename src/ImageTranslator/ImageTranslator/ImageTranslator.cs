@@ -12,7 +12,7 @@ public class ImageTranslator
     {
         this.file = file;
     }
-
+    
     /// <summary>
     /// Записывает биты файла в файл класса на языке jack в директорию destinationPath, название класса - JPEGBytes
     /// </summary>
@@ -29,15 +29,6 @@ public class ImageTranslator
         var text = BytesToText(bytesDict);
         
         File.WriteAllLines(destinationPath, text);
-        
-        /*using (FileStream fstream = new FileStream(destinationPath, FileMode.Create)) //здесь в пути должно содержаться название файла с расширением
-        {
-            // преобразуем строку в байты
-            byte[] buffer = Encoding.Default.GetBytes(text);
-            // запись массива байтов в файл
-            await fstream.WriteAsync(buffer, 0, buffer.Length);
-            Console.WriteLine("Текст записан в файл");
-        }*/
     }
 
     private string[] BytesToText(Dictionary<int, List<int>> dict)
