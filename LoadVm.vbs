@@ -13,7 +13,7 @@ WScript.Sleep 500
 
 WshShell.SendKeys "%f"
 WshShell.SendKeys "{ENTER}"
-WshShell.SendKeys "vm"
+WshShell.SendKeys WshShell.CurrentDirectory & "\vm"
 WshShell.SendKeys "{ENTER}"
 WScript.Sleep 500
 WshShell.SendKeys "{ENTER}"
