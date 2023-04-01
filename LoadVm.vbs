@@ -6,14 +6,14 @@ WScript.Sleep 2000
 
 WshShell.SendKeys "%V"
 WshShell.SendKeys "{ENTER}"
-WshShell.SendKeys "{DOWN}"
+WshShell.SendKeys "{UP}"
 WshShell.SendKeys "{ENTER}"
 
-WScript.Sleep 1000
+WScript.Sleep 500
 
 WshShell.SendKeys "%f"
 WshShell.SendKeys "{ENTER}"
 WshShell.SendKeys "vm"
 WshShell.SendKeys "{ENTER}"
-WScript.Sleep 1000
+WScript.Sleep 500
 WshShell.SendKeys "{ENTER}"
