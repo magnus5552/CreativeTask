@@ -13,3 +13,5 @@ ImageTranslator
 ImageTranslator <filename>.jpg
 ```
 Затем в открывшемся VMEmulator запустите программу
+
+<b>Важно!</b> После ввода команды не нажимайте ничего, пока программа не загрузится в VMEmulator
