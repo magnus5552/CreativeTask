@@ -31,6 +31,6 @@ call tools\JackCompiler %~dp0src
 
 move /Y src\*.vm vm\ > nul
 
-call tools/VMEmulator.bat
+cscript /nologo LoadVm.vbs
 
 popd
