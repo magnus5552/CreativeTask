@@ -1,0 +1,667 @@
+function Decoder.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push constant 17
+call Array.new 1
+pop this 3
+push constant 64
+call Array.new 1
+pop this 4
+push pointer 0
+return
+function Decoder.Decode 5
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push constant 0
+not
+not
+if-goto WHILE_END0
+push local 0
+call Bytes.GetByte 1
+pop local 1
+push local 0
+push constant 1
+add
+call Bytes.GetByte 1
+pop local 2
+push local 1
+push constant 255
+eq
+push local 2
+and
+push constant 216
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 2
+pop local 3
+goto IF_END0
+label IF_FALSE0
+push local 1
+push constant 255
+eq
+push local 2
+and
+push constant 217
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+return
+goto IF_END1
+label IF_FALSE1
+push constant 256
+push local 0
+push constant 2
+add
+call Bytes.GetByte 1
+call Math.multiply 2
+push local 0
+push constant 3
+add
+call Bytes.GetByte 1
+add
+push constant 2
+add
+pop local 3
+push local 0
+push constant 4
+add
+pop local 4
+push local 1
+push constant 255
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 2
+push constant 219
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push pointer 0
+push local 4
+push local 3
+push constant 4
+sub
+call Decoder.DefineQuantizationTables 3
+pop temp 0
+label IF_FALSE3
+push local 2
+push constant 192
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push pointer 0
+push local 4
+push local 3
+push constant 4
+sub
+call Decoder.BaseLineDCT 3
+pop temp 0
+label IF_FALSE4
+push local 2
+push constant 196
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push pointer 0
+push local 4
+push local 3
+push constant 4
+sub
+call Decoder.DefineHuffmanTables 3
+pop temp 0
+label IF_FALSE5
+push local 2
+push constant 218
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push pointer 0
+push local 0
+push local 3
+call Decoder.StartOfScan 3
+pop local 3
+label IF_FALSE6
+label IF_FALSE2
+label IF_END1
+label IF_END0
+push local 0
+push local 3
+add
+pop local 0
+push local 0
+call Bytes.GetByte 1
+push constant 1
+neg
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push constant 0
+return
+label IF_FALSE7
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Decoder.BuildMatrix 7
+push argument 0
+pop pointer 0
+call IDCT.new 0
+pop local 0
+push constant 0
+push this 3
+add
+pop pointer 1
+push that 0
+pop local 1
+push constant 1
+push this 3
+add
+pop pointer 1
+push that 0
+pop local 2
+push local 1
+push argument 1
+call HuffmanTable.GetCode 2
+pop local 3
+push argument 1
+push local 3
+call Stream.GetBinN 2
+pop local 4
+push local 3
+push local 4
+call Extensions.DecodeNumber 2
+push argument 2
+add
+pop this 2
+push local 0
+push constant 0
+push this 2
+push constant 0
+push this 4
+add
+pop pointer 1
+push that 0
+call Math.multiply 2
+call IDCT.AddZigZag 3
+pop temp 0
+push constant 1
+pop local 5
+label WHILE_EXP0
+push local 5
+push constant 64
+lt
+not
+if-goto WHILE_END0
+push local 2
+push argument 1
+call HuffmanTable.GetCode 2
+pop local 3
+push local 3
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+return
+label IF_FALSE0
+push local 3
+push constant 15
+gt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 5
+push local 3
+push constant 16
+call Math.divide 2
+add
+pop local 5
+push local 3
+push constant 15
+and
+pop local 3
+label IF_FALSE1
+push argument 1
+push local 3
+call Stream.GetBinN 2
+pop local 4
+push local 5
+push constant 64
+lt
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 3
+push local 4
+call Extensions.DecodeNumber 2
+pop local 6
+push local 0
+push local 5
+push local 6
+push local 5
+push this 4
+add
+pop pointer 1
+push that 0
+call Math.multiply 2
+call IDCT.AddZigZag 3
+pop temp 0
+push local 5
+push constant 1
+add
+pop local 5
+label IF_FALSE2
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+return
+function Decoder.StartOfScan 12
+push argument 0
+pop pointer 0
+push argument 1
+push argument 2
+add
+call Stream.new 1
+pop local 0
+push this 1
+push constant 8
+call Math.divide 2
+pop local 8
+push this 0
+push constant 8
+call Math.divide 2
+pop local 9
+push constant 0
+pop local 4
+label WHILE_EXP0
+push local 4
+push local 8
+lt
+not
+if-goto WHILE_END0
+push constant 0
+pop local 5
+label WHILE_EXP1
+push local 5
+push local 9
+lt
+not
+if-goto WHILE_END1
+push pointer 0
+push local 0
+push local 3
+call Decoder.BuildMatrix 3
+pop local 1
+push pointer 0
+push local 0
+push local 10
+call Decoder.BuildMatrix 3
+pop local 2
+push local 2
+call IDCT.dispose 1
+pop temp 0
+push pointer 0
+push local 0
+push local 10
+call Decoder.BuildMatrix 3
+pop local 2
+push local 2
+call IDCT.dispose 1
+pop temp 0
+push this 2
+pop local 3
+push constant 0
+pop local 6
+label WHILE_EXP2
+push local 6
+push constant 8
+lt
+not
+if-goto WHILE_END2
+push constant 0
+pop local 7
+label WHILE_EXP3
+push local 7
+push constant 8
+lt
+not
+if-goto WHILE_END3
+push local 1
+push local 7
+push local 6
+call Extensions.XYtoLin 2
+call IDCT.GetFromBase 2
+pop local 11
+push local 11
+call Float.isNeg 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 0
+not
+call Screen.setColor 1
+pop temp 0
+goto IF_END0
+label IF_FALSE0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+label IF_END0
+push local 11
+call Float.dispose 1
+pop temp 0
+push local 5
+push constant 8
+call Math.multiply 2
+push local 7
+add
+push local 4
+push constant 8
+call Math.multiply 2
+push local 6
+add
+call Screen.drawPixel 2
+pop temp 0
+push local 7
+push constant 1
+add
+pop local 7
+goto WHILE_EXP3
+label WHILE_END3
+push local 6
+push constant 1
+add
+pop local 6
+goto WHILE_EXP2
+label WHILE_END2
+push local 1
+call IDCT.dispose 1
+pop temp 0
+push local 5
+push constant 1
+add
+pop local 5
+goto WHILE_EXP1
+label WHILE_END1
+push local 4
+push constant 1
+add
+pop local 4
+goto WHILE_EXP0
+label WHILE_END0
+call Bytes.GetLen 0
+push argument 1
+sub
+push constant 2
+sub
+return
+function Decoder.DefineQuantizationTables 2
+push argument 0
+pop pointer 0
+push argument 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 1
+push argument 2
+add
+lt
+not
+if-goto WHILE_END0
+push local 0
+call Bytes.GetByte 1
+pop local 1
+push local 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push constant 1
+add
+push local 0
+push constant 1
+add
+push constant 64
+add
+push constant 64
+call Extensions.GetArray 3
+pop this 4
+label IF_FALSE0
+push local 0
+push constant 65
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function Decoder.BaseLineDCT 6
+push argument 0
+pop pointer 0
+push argument 1
+call Bytes.GetByte 1
+pop local 0
+push argument 1
+push constant 1
+add
+call Bytes.GetByte 1
+push constant 256
+call Math.multiply 2
+push argument 1
+push constant 2
+add
+call Bytes.GetByte 1
+add
+pop this 1
+push argument 1
+push constant 3
+add
+call Bytes.GetByte 1
+push constant 256
+call Math.multiply 2
+push argument 1
+push constant 4
+add
+call Bytes.GetByte 1
+add
+pop this 0
+push constant 0
+return
+function Decoder.DefineHuffmanTables 11
+push argument 0
+pop pointer 0
+push constant 16
+call Array.new 1
+pop local 7
+push argument 1
+pop local 0
+label WHILE_EXP0
+push local 0
+push argument 1
+push argument 2
+add
+lt
+not
+if-goto WHILE_END0
+push local 0
+call Bytes.GetByte 1
+pop local 1
+push local 0
+push constant 1
+add
+pop local 0
+push local 0
+push local 0
+push constant 16
+add
+push constant 16
+call Extensions.GetArray 3
+pop local 7
+push local 0
+push constant 16
+add
+pop local 0
+push constant 0
+pop local 2
+push constant 0
+pop local 3
+label WHILE_EXP1
+push local 3
+push constant 16
+lt
+not
+if-goto WHILE_END1
+push local 2
+push local 3
+push local 7
+add
+pop pointer 1
+push that 0
+add
+pop local 2
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP1
+label WHILE_END1
+push local 2
+call Array.new 1
+pop local 8
+push constant 0
+pop local 3
+push constant 0
+pop local 6
+label WHILE_EXP2
+push local 3
+push constant 16
+lt
+not
+if-goto WHILE_END2
+push local 0
+push local 3
+add
+pop local 0
+push local 3
+push local 7
+add
+pop pointer 1
+push that 0
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 0
+push local 0
+push local 3
+push local 7
+add
+pop pointer 1
+push that 0
+add
+push local 3
+push local 7
+add
+pop pointer 1
+push that 0
+call Extensions.GetArray 3
+pop local 9
+push constant 0
+pop local 4
+label WHILE_EXP3
+push local 4
+push local 3
+push local 7
+add
+pop pointer 1
+push that 0
+lt
+not
+if-goto WHILE_END3
+push local 6
+push local 8
+add
+push local 4
+push local 9
+add
+pop pointer 1
+push that 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 4
+push constant 1
+add
+pop local 4
+push local 6
+push constant 1
+add
+pop local 6
+goto WHILE_EXP3
+label WHILE_END3
+push local 9
+call Array.dispose 1
+pop temp 0
+label IF_FALSE0
+push local 3
+push constant 1
+add
+pop local 3
+goto WHILE_EXP2
+label WHILE_END2
+push local 1
+call HuffmanTable.new 1
+pop local 10
+push local 1
+push constant 0
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 0
+push this 3
+add
+push local 10
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE1
+push local 1
+push constant 16
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push constant 1
+push this 3
+add
+push local 10
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE2
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return

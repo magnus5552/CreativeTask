@@ -216,7 +216,8 @@ class jpeg:
                 # store it as RGB
                 for yy in range(8):
                     for xx in range(8):
-                        self.image[(x * 8 + xx) + ((y * 8 + yy) * self.width)] = matL.base[XYtoLin(xx, yy)]
+                        #print(ColorConversion(matL.base[XYtoLin(xx, yy)], 0 ,0), matL.base[XYtoLin(xx, yy)])
+                        self.image[(x * 8 + xx) + ((y * 8 + yy) * self.width)] = ColorConversion(matL.base[XYtoLin(xx, yy)], 0 ,0)
 
 
         return lenchunk + hdrlen
@@ -285,6 +286,11 @@ class jpeg:
 
 width, height, image = jpeg().decode(
     open(sys.argv[1], 'rb').read())
+
+from PIL import Image
+img = Image.new("RGB", (width, height))
+img.putdata(image)
+img.show()
 
 file = open("src/HuffmanTable.jack", "w")
 

@@ -1,0 +1,117 @@
+function Stream.new 0
+push constant 2
+call Memory.alloc 1
+pop pointer 0
+push constant 0
+pop this 0
+push argument 0
+pop this 1
+push pointer 0
+return
+function Stream.GetBit 4
+push argument 0
+pop pointer 0
+push this 1
+push this 0
+push constant 8
+call Math.divide 2
+add
+call Bytes.GetByte 1
+pop local 0
+push constant 7
+push this 0
+push constant 7
+and
+sub
+pop local 1
+push local 0
+push constant 0
+eq
+push this 1
+push this 0
+push constant 8
+call Math.divide 2
+add
+push constant 1
+add
+call Bytes.GetByte 1
+push constant 0
+eq
+and
+push this 1
+push this 0
+push constant 8
+call Math.divide 2
+add
+push constant 1
+sub
+call Bytes.GetByte 1
+push constant 255
+eq
+and
+push this 1
+push this 0
+push constant 8
+call Math.divide 2
+add
+push constant 2
+sub
+call Bytes.GetByte 1
+push constant 255
+eq
+and
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push constant 16
+add
+pop this 0
+push this 1
+push this 0
+push constant 8
+call Math.divide 2
+add
+call Bytes.GetByte 1
+pop local 0
+label IF_FALSE0
+push this 0
+push constant 1
+add
+pop this 0
+push constant 2
+push local 1
+call Extensions.Pow 2
+pop local 3
+push local 0
+push local 3
+call Math.divide 2
+push constant 1
+and
+return
+function Stream.GetBinN 1
+push argument 0
+pop pointer 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push argument 1
+push constant 0
+gt
+not
+if-goto WHILE_END0
+push local 0
+push constant 2
+call Math.multiply 2
+push pointer 0
+call Stream.GetBit 1
+add
+pop local 0
+push argument 1
+push constant 1
+sub
+pop argument 1
+goto WHILE_EXP0
+label WHILE_END0
+push local 0
+return

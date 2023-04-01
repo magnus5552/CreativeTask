@@ -18,7 +18,7 @@ class IDCT
     }
 
     method void AddIDC(int n, int m, int coeff){
-        var Float mm, nn, something;
+        var Float mm, nn, something, elem;
         var int y, x, linXY;
         let y = 0;
         let x = 0;
@@ -33,11 +33,12 @@ class IDCT
                 do nn.dispose();
                 
                 let something = something.multInt(coeff);
-                
             
                 let linXY = Extensions.XYtoLin(x,y);
-                
-                let base[linXY] = something.add(base[linXY]);
+                let elem = base[linXY];
+                let elem = elem.add(something);
+                do something.dispose();
+                let base[linXY] = elem;
                 let x = x + 1;
             }
             let y = y + 1;

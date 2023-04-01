@@ -14,10 +14,10 @@ public static class Program
             throw new FileLoadException("Слишком большой файл! Размер файла не должен превышать 32КБ");
         
         var imageTranslator = new ImageTranslator(file);
-        
-        var compilerPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent.ToString(); //путь до /CreativeTask
-        
-        var destPath = (args.Length > 1 ? args[1] : compilerPath + "\\src") + @"\Bytes.jack";
+
+        var curDir = new DirectoryInfo(Directory.GetCurrentDirectory());
+        var compilerPath = curDir.Parent?.Parent?.Parent?.ToString(); //путь до /CreativeTask
+        var destPath = (args.Length > 1 ? args[1] : compilerPath + "\\src") + "\\Bytes.jack";
         
         imageTranslator.WriteFile(destPath);
     }

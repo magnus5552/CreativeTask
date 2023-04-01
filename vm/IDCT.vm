@@ -1,0 +1,150 @@
+function IDCT.new 1
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push constant 64
+call Array.new 1
+pop this 0
+push constant 0
+pop local 0
+label WHILE_EXP0
+push local 0
+push constant 64
+lt
+not
+if-goto WHILE_END0
+push local 0
+push this 0
+add
+call Float.new 0
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 0
+push constant 1
+add
+pop local 0
+goto WHILE_EXP0
+label WHILE_END0
+push pointer 0
+return
+function IDCT.GetFromBase 0
+push argument 0
+pop pointer 0
+push argument 1
+push this 0
+add
+pop pointer 1
+push that 0
+return
+function IDCT.AddIDC 7
+push argument 0
+pop pointer 0
+push constant 0
+pop local 4
+push constant 0
+pop local 5
+label WHILE_EXP0
+push local 4
+push constant 8
+lt
+not
+if-goto WHILE_END0
+label WHILE_EXP1
+push local 5
+push constant 8
+lt
+not
+if-goto WHILE_END1
+push argument 1
+push local 5
+call Cos.GetCos 2
+pop local 1
+push argument 2
+push local 4
+call Cos.GetCos 2
+pop local 0
+push local 0
+push local 1
+call Float.mult 2
+pop local 2
+push local 1
+call Float.dispose 1
+pop temp 0
+push local 2
+push argument 3
+call Float.multInt 2
+pop local 2
+push local 5
+push local 4
+call Extensions.XYtoLin 2
+pop local 6
+push local 6
+push this 0
+add
+pop pointer 1
+push that 0
+pop local 3
+push local 3
+push local 2
+call Float.add 2
+pop local 3
+push local 2
+call Float.dispose 1
+pop temp 0
+push local 6
+push this 0
+add
+push local 3
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+push local 5
+push constant 1
+add
+pop local 5
+goto WHILE_EXP1
+label WHILE_END1
+push local 4
+push constant 1
+add
+pop local 4
+goto WHILE_EXP0
+label WHILE_END0
+push constant 0
+return
+function IDCT.AddZigZag 3
+push argument 0
+pop pointer 0
+push argument 1
+call Extensions.GetZigZag 1
+pop local 0
+push local 0
+push constant 7
+and
+pop local 1
+push local 0
+push constant 8
+call Math.divide 2
+pop local 2
+push pointer 0
+push local 1
+push local 2
+push argument 2
+call IDCT.AddIDC 4
+pop temp 0
+push constant 0
+return
+function IDCT.dispose 0
+push argument 0
+pop pointer 0
+push this 0
+call Array.dispose 1
+pop temp 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
