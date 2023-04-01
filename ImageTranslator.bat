@@ -19,9 +19,11 @@ if not "%~1"=="" (
     echo No .jpeg or .jpg files in current directory
     goto :eof
 )
-pushd %~dp0
 
 :translate
+pushd %~dp0
+set _arg1=%_arg1: =%
+
 echo Translating %_arg1%
 
 @REM python DefineHuffmanTables.py %_arg1%
