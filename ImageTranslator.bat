@@ -10,14 +10,6 @@ if not "%~1"=="" (
             goto :eof
         )
     )
-if not %~1=="" (
-    if not %~x1==".jpeg" (
-        if not %~x1==".jpg" (
-            echo Wrong file extension: %~x1
-            echo Only .jpeg or .jpg files supported
-            goto :eof
-        )
-    )
     set "_arg1=%~f1"
 ) else (
     for %%i in (*.jpeg, *.jpg) do (
