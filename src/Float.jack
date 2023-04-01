@@ -2,6 +2,7 @@
 // for educational use.
 
 /**
+ *  Не ревьюить, код взят с форума http://nand2tetris-questions-and-answers-forum.52.s1.nabble.com/Floating-point-arithmetic-tp4025143.html
  *	Type Float -- floating point arithmetic.
  *
  *	This class implements floating point arithmetic with 32 bit signed
@@ -1225,7 +1226,7 @@ class Float {
 	/**
 	 *	Convert this Float to a string with 'n' mantissa digits.
 	 *
-	 *	The string format is [-]n.nnnE�xxx
+	 *	The string format is [-]n.nnnE�xxx
 	 *	The maximum representable number is returned as "+/-inf."
 	 *
 	 *		let new_String = f.toString(n);
@@ -1327,7 +1328,7 @@ class Float {
 	/**
 	 *	Set this Float from a String.
 	 *
-	 *	The input string format is +-nn.nnnE�nn
+	 *	The input string format is +-nn.nnnE�nn
 	 *	The signs are optional.  The exponent is optional and can
 	 *	use 'E' or 'e'.
 	 *
