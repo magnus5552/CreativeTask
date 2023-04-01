@@ -12,4 +12,4 @@ ImageTranslator
 ```
 ImageTranslator <filename>.jpg
 ```
-Затем в открывшемся VMEmulator загрузите папку vm и запустите программу
+Затем в открывшемся VMEmulator запустите программу
