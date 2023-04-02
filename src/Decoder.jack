@@ -1,9 +1,14 @@
+/**
+* Класс, который декодиует изображение jpeg
+* Так как вычисления происходят с дробными числами, а так же матрицами (в упрощенном виде), работает очень долго
+*/
+
 class Decoder {
     field int width, height, dccoeff;
     field Array tables, quantizationTable;
 
     constructor Decoder new() {
-        let tables = Array.new(17);
+        let tables = Array.new(4);
         let quantizationTable = Array.new(64);
         return this;
     }
@@ -40,14 +45,14 @@ class Decoder {
         return;
     }
 
-    method IDCT BuildMatrix(Stream stream, int oldccoeff) {
+    method IDCT BuildMatrix(Stream stream, int oldccoeff, int id) {
         var IDCT inverseDCT;
         var HuffmanTable DC, AC;
         var int code, bits, l, coeff;
 
         let inverseDCT = IDCT.new();
-        let DC = tables[0];
-        let AC = tables[1];
+        let DC = tables[id];
+        let AC = tables[id + 1];
         let code = DC.GetCode(stream);
         let bits = stream.GetBinN(code);
 
@@ -80,25 +85,31 @@ class Decoder {
     method int StartOfScan (int chunkIndex, int chunkLen) {
         var Stream stream;
         var IDCT matL, mat1;
-        var int oldLumdcCoeff, y, x, yy, xx, blocksHeight, blocksWidth, trash;
+        var int oldLumdcCoeff, y, x, yy, xx, blocksHeight, blocksWidth, trash1, trash2;
         var Float color;
 
         let stream = Stream.new(chunkIndex + chunkLen);
         
+        let oldLumdcCoeff = 0;
+        let trash1 = 0;
+        let trash2 = 0;
+
         let blocksHeight = height / 8;
         let blocksWidth = width / 8;
         let y = 0;
-
         while(y < blocksHeight) {
             
             let x = 0;
             while(x < blocksWidth) {
-                let matL = BuildMatrix(stream, oldLumdcCoeff);
-                let mat1 = BuildMatrix(stream, trash);
-                do mat1.dispose();
-                let mat1 = BuildMatrix(stream, trash);
-                do mat1.dispose();
+                let matL = BuildMatrix(stream, oldLumdcCoeff, 0);
                 let oldLumdcCoeff = dccoeff;
+                let mat1 = BuildMatrix(stream, trash1, 1);
+                let trash1 = dccoeff;
+                do mat1.dispose();
+                let mat1 = BuildMatrix(stream, trash2, 1);
+                let trash2 = dccoeff;
+                do mat1.dispose();
+                
                 let yy = 0;
                 while(yy < 8) {
                     let xx = 0;
@@ -170,35 +181,40 @@ class Decoder {
                 let sumLengths = sumLengths + lengths[i];
                 let i = i + 1;
             }
-
             let elements = Array.new(sumLengths); 
             let i = 0;
             let elementsIndex = 0;
             while(i < 16) {
-                let off = off + i;
-
+                
                 if(lengths[i] > 0) {
                     let tempArray = Extensions.GetArray(off, off+lengths[i], lengths[i]);                
 
                     let j = 0; //добавляем значения tempArray в конец elements
-                    while (j < lengths[i]){ 
+                    while (j < lengths[i]){
                         let elements[elementsIndex] = tempArray[j];
                         let j = j + 1;
                         let elementsIndex = elementsIndex + 1;
                     }
                     do tempArray.dispose();
                 }
+                let off = off + lengths[i];
+
                 let i = i + 1;
-            }
-            
-            let hf = HuffmanTable.new(header);
-            //do hf.GetHuffmanBits(lengths, elements);
+            }            
+            let hf = HuffmanTable.new();
+            do hf.GetHuffmanBits(lengths, elements);
             if (header = 0) {
-                let tables[0] = hf;
+                let tables[0] = hf; // DC lumin table
             }
             if (header = 16) {
-                let tables[1] = hf;
-            } 
+                let tables[1] = hf; // AC lumin table
+            }
+            if (header = 1) {
+                let tables[2] = hf; // DC chroma table
+            }
+            if (header = 17) {
+                let tables[3] = hf; // AC chroma table
+            }
         }
         return;
     }

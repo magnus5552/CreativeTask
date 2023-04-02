@@ -1,3 +1,8 @@
+/**
+ * Класс, который представляет данные в виде потока битов
+ * Согласно спецификации jpeg, последовательности байтов FF00 должны считываться без нулей
+*/
+
 class Stream{
     field int pos, index;
 
@@ -9,13 +14,20 @@ class Stream{
     }
 
     method int GetBit(){
-        var int b, s, temp, bitwise;
+        var int b, s, temp, bitwise, p;
+        let p = index + (pos/8);
 
-        let b = Bytes.GetByte(index + (pos/8));
+        let b = Bytes.GetByte(p);
         let s = 7 - (pos & 7);
-        if ((b = 0) & (Bytes.GetByte(index + (pos/8) + 1) = 0) & (Bytes.GetByte(index + (pos/8) - 1) = 255) & (Bytes.GetByte(index + (pos/8) - 2) = 255)) {
-            let pos = pos + 16;
-            let b = Bytes.GetByte(index + (pos/8));
+        if (b = 0) {                                    // Эта конструкция нужна для оптимизации, 
+            if (Bytes.GetByte(p + 1) = 0) {             // т. к. jack сначала считает всё выражение
+                if (Bytes.GetByte(p - 1) = 255) {       // в if, а не останавливается, когда один из
+                    if (Bytes.GetByte(p - 2) = 255) {   // операндов false
+                        let pos = pos + 16;
+                        let b = Bytes.GetByte(index + (pos/8)); 
+                    }
+                }
+            }
         }
         let pos = pos + 1;
         let bitwise = Extensions.Pow(2, s);

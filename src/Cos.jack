@@ -1,3 +1,7 @@
+/**
+* Предрасчитанная таблица косинусов, которая хранится в коде
+*/
+
 class Cos {
     
     function Float GetCos(int n, int x){

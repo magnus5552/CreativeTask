@@ -216,7 +216,7 @@ class jpeg:
                 # store it as RGB
                 for yy in range(8):
                     for xx in range(8):
-                        #print(ColorConversion(matL.base[XYtoLin(xx, yy)], 0 ,0), matL.base[XYtoLin(xx, yy)])
+                        print(matL.base[XYtoLin(xx, yy)])
                         self.image[(x * 8 + xx) + ((y * 8 + yy) * self.width)] = ColorConversion(matL.base[XYtoLin(xx, yy)], 0 ,0)
 
 
@@ -251,7 +251,7 @@ class jpeg:
             for i in lengths:
                 elements += (GetArray("B", data[off:off + i], i))
                 off = off + i
-
+            print(hdr, lengths, elements)
             hf = HuffmanTable()
             hf.GetHuffmanBits(lengths, elements)
             self.tables[hdr] = hf
@@ -285,14 +285,14 @@ class jpeg:
 
 
 width, height, image = jpeg().decode(
-    open(sys.argv[1], 'rb').read())
+    open('New_Piskel1.jpeg', 'rb').read())
 
 from PIL import Image
 img = Image.new("RGB", (width, height))
 img.putdata(image)
 img.show()
 
-file = open("src/HuffmanTable.jack", "w")
+#file = open("src/HuffmanTable.jack", "w")
 
 text = ["class HuffmanTable {",
     "\tfield int Type;",

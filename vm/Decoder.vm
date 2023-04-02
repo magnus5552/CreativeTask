@@ -2,7 +2,7 @@ function Decoder.new 0
 push constant 5
 call Memory.alloc 1
 pop pointer 0
-push constant 17
+push constant 4
 call Array.new 1
 pop this 3
 push constant 64
@@ -161,13 +161,15 @@ push argument 0
 pop pointer 0
 call IDCT.new 0
 pop local 0
-push constant 0
+push argument 3
 push this 3
 add
 pop pointer 1
 push that 0
 pop local 1
+push argument 3
 push constant 1
+add
 push this 3
 add
 pop pointer 1
@@ -270,7 +272,7 @@ goto WHILE_EXP0
 label WHILE_END0
 push local 0
 return
-function Decoder.StartOfScan 12
+function Decoder.StartOfScan 13
 push argument 0
 pop pointer 0
 push argument 1
@@ -278,6 +280,12 @@ push argument 2
 add
 call Stream.new 1
 pop local 0
+push constant 0
+pop local 3
+push constant 0
+pop local 10
+push constant 0
+pop local 11
 push this 1
 push constant 8
 call Math.divide 2
@@ -305,26 +313,33 @@ if-goto WHILE_END1
 push pointer 0
 push local 0
 push local 3
-call Decoder.BuildMatrix 3
+push constant 0
+call Decoder.BuildMatrix 4
 pop local 1
-push pointer 0
-push local 0
-push local 10
-call Decoder.BuildMatrix 3
-pop local 2
-push local 2
-call IDCT.dispose 1
-pop temp 0
-push pointer 0
-push local 0
-push local 10
-call Decoder.BuildMatrix 3
-pop local 2
-push local 2
-call IDCT.dispose 1
-pop temp 0
 push this 2
 pop local 3
+push pointer 0
+push local 0
+push local 10
+push constant 1
+call Decoder.BuildMatrix 4
+pop local 2
+push this 2
+pop local 10
+push local 2
+call IDCT.dispose 1
+pop temp 0
+push pointer 0
+push local 0
+push local 11
+push constant 1
+call Decoder.BuildMatrix 4
+pop local 2
+push this 2
+pop local 11
+push local 2
+call IDCT.dispose 1
+pop temp 0
 push constant 0
 pop local 6
 label WHILE_EXP2
@@ -346,8 +361,12 @@ push local 7
 push local 6
 call Extensions.XYtoLin 2
 call IDCT.GetFromBase 2
-pop local 11
-push local 11
+pop local 12
+push local 12
+push constant 100
+call Float.print 2
+pop temp 0
+push local 12
 call Float.isNeg 1
 if-goto IF_TRUE0
 goto IF_FALSE0
@@ -362,7 +381,7 @@ push constant 0
 call Screen.setColor 1
 pop temp 0
 label IF_END0
-push local 11
+push local 12
 call Float.dispose 1
 pop temp 0
 push local 5
@@ -542,6 +561,8 @@ add
 pop local 3
 goto WHILE_EXP1
 label WHILE_END1
+call Output.println 0
+pop temp 0
 push local 2
 call Array.new 1
 pop local 8
@@ -555,10 +576,6 @@ push constant 16
 lt
 not
 if-goto WHILE_END2
-push local 0
-push local 3
-add
-pop local 0
 push local 3
 push local 7
 add
@@ -622,15 +639,27 @@ push local 9
 call Array.dispose 1
 pop temp 0
 label IF_FALSE0
+push local 0
+push local 3
+push local 7
+add
+pop pointer 1
+push that 0
+add
+pop local 0
 push local 3
 push constant 1
 add
 pop local 3
 goto WHILE_EXP2
 label WHILE_END2
-push local 1
-call HuffmanTable.new 1
+call HuffmanTable.new 0
 pop local 10
+push local 10
+push local 7
+push local 8
+call HuffmanTable.GetHuffmanBits 3
+pop temp 0
 push local 1
 push constant 0
 eq
@@ -661,6 +690,36 @@ pop pointer 1
 push temp 0
 pop that 0
 label IF_FALSE2
+push local 1
+push constant 1
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push constant 2
+push this 3
+add
+push local 10
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE3
+push local 1
+push constant 17
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push constant 3
+push this 3
+add
+push local 10
+pop temp 0
+pop pointer 1
+push temp 0
+pop that 0
+label IF_FALSE4
 goto WHILE_EXP0
 label WHILE_END0
 push constant 0

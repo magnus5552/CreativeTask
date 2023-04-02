@@ -8,7 +8,7 @@ push argument 0
 pop this 1
 push pointer 0
 return
-function Stream.GetBit 4
+function Stream.GetBit 5
 push argument 0
 pop pointer 0
 push this 1
@@ -16,6 +16,8 @@ push this 0
 push constant 8
 call Math.divide 2
 add
+pop local 4
+push local 4
 call Bytes.GetByte 1
 pop local 0
 push constant 7
@@ -27,42 +29,36 @@ pop local 1
 push local 0
 push constant 0
 eq
-push this 1
-push this 0
-push constant 8
-call Math.divide 2
-add
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push local 4
 push constant 1
 add
 call Bytes.GetByte 1
 push constant 0
 eq
-and
-push this 1
-push this 0
-push constant 8
-call Math.divide 2
-add
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push local 4
 push constant 1
 sub
 call Bytes.GetByte 1
 push constant 255
 eq
-and
-push this 1
-push this 0
-push constant 8
-call Math.divide 2
-add
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push local 4
 push constant 2
 sub
 call Bytes.GetByte 1
 push constant 255
 eq
-and
-if-goto IF_TRUE0
-goto IF_FALSE0
-label IF_TRUE0
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
 push this 0
 push constant 16
 add
@@ -74,6 +70,9 @@ call Math.divide 2
 add
 call Bytes.GetByte 1
 pop local 0
+label IF_FALSE3
+label IF_FALSE2
+label IF_FALSE1
 label IF_FALSE0
 push this 0
 push constant 1
