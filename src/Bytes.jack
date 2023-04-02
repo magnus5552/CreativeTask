@@ -1,8 +1,3 @@
-/**
-* Байты изображения, записанные в виде класса jack, чтобы они хранились в коде, а не в памяти
-* Файл генерируется с помощью .NET проекта ImageTranslator, который находится в этой же папке
-*/
-
 class Bytes {
 	function int GetLen() { return 1756; }
 	function int GetByte (int index) {

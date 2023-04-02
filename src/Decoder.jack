@@ -54,6 +54,7 @@ class Decoder {
         let DC = tables[id];
         let AC = tables[id + 1];
         let code = DC.GetCode(stream);
+        //do Output.printInt(code);
         let bits = stream.GetBinN(code);
 
         let dccoeff = Extensions.DecodeNumber(code, bits) + oldccoeff;
@@ -116,10 +117,10 @@ class Decoder {
                     while(xx < 8) {
                         let color = matL.GetFromBase(Extensions.XYtoLin(xx, yy));
                         if (color.isNeg()) { 
-                            do Screen.setColor(true); 
+                            do Screen.setColor(false); 
                         }
                         else { 
-                            do Screen.setColor(false); 
+                            do Screen.setColor(true); 
                         }
                         do color.dispose();
 

@@ -1,5 +1,6 @@
 .vscode
 /src/*.vm
+*.py
 # Common IntelliJ Platform excludes
 
 # User specific

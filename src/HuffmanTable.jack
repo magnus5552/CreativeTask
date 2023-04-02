@@ -10,8 +10,8 @@ class HuffmanTable {
     }
 
     method void GetHuffmanBits(Array lengthss, Array elementss){
-        let elements = elementss;
         let lengths = lengthss;
+        let elements = elementss;
         return;
     }
 
@@ -20,17 +20,18 @@ class HuffmanTable {
         let code = 0;
         let first = 0;
         let index = 0;
-        let len = 1;
+        let len = 0;
         while(len < 16){
-            let code = code + st.GetBit();
+            let code = code | st.GetBit();
             let count = lengths[len];
             if ((code - count) < first){
+                do Output.printInt(elements[index + (code - first)]);
                 return elements[index + (code - first)];
             }
             let index = index + count;
             let first = first + count;
-            let first = first * 2; // first = first < 1
-            let code = code * 2; // code = code < 1
+            let first = first * 2; // first = first << 1
+            let code = code * 2; // code = code << 1
             let len = len + 1;
         }
         return -1;

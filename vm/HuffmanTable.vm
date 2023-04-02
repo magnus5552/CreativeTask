@@ -7,10 +7,10 @@ return
 function HuffmanTable.GetHuffmanBits 0
 push argument 0
 pop pointer 0
-push argument 2
-pop this 0
 push argument 1
 pop this 1
+push argument 2
+pop this 0
 push constant 0
 return
 function HuffmanTable.GetCode 5
@@ -22,7 +22,7 @@ push constant 0
 pop local 2
 push constant 0
 pop local 4
-push constant 1
+push constant 0
 pop local 0
 label WHILE_EXP0
 push local 0
@@ -33,7 +33,7 @@ if-goto WHILE_END0
 push local 1
 push argument 1
 call Stream.GetBit 1
-add
+or
 pop local 1
 push local 0
 push this 1
@@ -49,6 +49,19 @@ lt
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
+push local 4
+push local 1
+push local 2
+sub
+push constant 1
+sub
+add
+push this 0
+add
+pop pointer 1
+push that 0
+call Output.printInt 1
+pop temp 0
 push local 4
 push local 1
 push local 2

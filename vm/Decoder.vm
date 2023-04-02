@@ -363,21 +363,17 @@ call Extensions.XYtoLin 2
 call IDCT.GetFromBase 2
 pop local 12
 push local 12
-push constant 100
-call Float.print 2
-pop temp 0
-push local 12
 call Float.isNeg 1
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push constant 0
-not
 call Screen.setColor 1
 pop temp 0
 goto IF_END0
 label IF_FALSE0
 push constant 0
+not
 call Screen.setColor 1
 pop temp 0
 label IF_END0
@@ -561,8 +557,6 @@ add
 pop local 3
 goto WHILE_EXP1
 label WHILE_END1
-call Output.println 0
-pop temp 0
 push local 2
 call Array.new 1
 pop local 8
